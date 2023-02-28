@@ -59,10 +59,7 @@ void solve(){
          count++;
          in_check = 0;
       }
-      debug(a[i]);
-      debug(curr);
-      debug(count);
-      debug("------");
+
    }
    if(in_check==n-1){
       cout<<1<<newline();
