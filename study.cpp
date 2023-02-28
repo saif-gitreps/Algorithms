@@ -4,7 +4,7 @@
 #define endg "\n"
 #define s(x) sizeof(x)/sizeof(x[0]);
 using namespace std;
-//============================================ STRINGs =======================================================//
+//============================================ STRINGs ======================================================//
 string substring(string word,int pos,int len){
 	string sub = "";
 	for(int i=pos;i<pos+len;i++){
