@@ -67,3 +67,23 @@ public:
         return result;
     }
 };
+class Solution3 {
+public:
+   string convert(string s, int num_row) {
+        vector<string> pat(num_row,"");
+        int n = s.size();
+        for(int k=0;k<n;){
+            for(int i=0;i<num_row && k<n;k++){
+                pat[i++] += s[k];
+            }
+            for(int i=num_row-2;i>0 && k<n;k++){
+                pat[i--] += s[k];
+            }
+        }
+        string newstr = "";
+        for(int i=0;i<pat.size();i++){
+            newstr += pat[i];
+        }
+    return newstr;
+    }
+};
