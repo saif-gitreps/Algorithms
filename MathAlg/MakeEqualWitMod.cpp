@@ -9,9 +9,9 @@ using namespace std;
 const int MAXN = 100010;
 /*
 so the three conditions were 
-1: if there were no one , then YES we can get all mod to 0.
-2: if there is a 1 but no consective numbers i.e abs(a[0]-a[1])==1 then YES.
-3: if there is a 1 and two consecutive numbers then NO.
+1: if there were no '1' , then YES we can get all mod to 0.
+2: if there is a '1' but no consective numbers i.e abs(a[0]-a[1])==1 then YES.
+3: if there is a '1' and two consecutive numbers are present then NO.
 */
 void solve(){
    int n;cin>>n;
