@@ -47,3 +47,33 @@ public:
     return nums;
     }
 };
+
+class Solution2 {
+public:
+  //this is a better solution. 
+   vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> nums;
+        int left = 0; int right = matrix[0].size()-1;
+        int top = 0; int bottom = matrix.size()-1;
+        int n = matrix[0].size() * matrix.size();
+        while(nums.size()<n){
+            for(int i=left;i<=right && nums.size()<n;i++){
+                nums.push_back(matrix[top][i]);
+            }
+            top++;
+            for(int i=top;i<=bottom && nums.size()<n;i++){
+                nums.push_back(matrix[i][right]);
+            }
+            right--;
+            for(int i= right;i>=left && nums.size()<n;i--){
+                nums.push_back(matrix[bottom][i]);
+            }
+            bottom--;
+            for(int i=bottom;i>=top && nums.size()<n;i--){
+                nums.push_back(matrix[i][left]);
+            }
+            left++;
+        }
+
+    return nums;}
+};
