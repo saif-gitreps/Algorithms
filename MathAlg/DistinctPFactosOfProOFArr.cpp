@@ -23,3 +23,26 @@ public:
         return v.size();
     }
 };
+
+class Solution2 {
+public:
+  // this worked , difference is that.
+  // we used the algorithm to find the prime factos of each elements
+  // instead of product of array, and even that seems to give us accruate prime factors.
+    int distinctPrimeFactors(vector<int>& nums) {
+        long long n = 1;
+        set<int> v;
+        for(int i=0;i<nums.size();i++){
+            for(int j=2;j*j<=nums[i];j++){
+                while(nums[i]%j==0){
+                    v.insert(j);
+                    nums[i]/=j;
+                }
+            }
+            if(nums[i]>1){
+                v.insert(nums[i]);
+            }
+        } 
+        return v.size();
+    }
+};
