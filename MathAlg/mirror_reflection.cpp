@@ -31,3 +31,15 @@ public:
     return -1;
 }
 };
+//o(1) sol.
+class Solution2 {
+public:
+    int mirrorReflection(int p, int q) {
+        int lcm = (p*q)/__gcd(p, q);
+        int m = lcm/p,n = lcm/q,ans=-1;
+        if(m%2==0 && n%2==1){ans=0;}
+        else if(m%2==1 && n%2==1){ans=1;}
+        else if(m%2==1 && n%2==0){ans=2;}
+        return ans;
+    }
+};
