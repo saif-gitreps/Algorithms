@@ -25,6 +25,7 @@ public:
 
 class Solution2 {
 public:
+  //understandble soln
     bool is_equal(string word,int i){
         word.erase(i,1);
         unordered_map<char,int> m;
