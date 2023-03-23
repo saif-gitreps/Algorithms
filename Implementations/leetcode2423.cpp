@@ -22,3 +22,28 @@ public:
    return false;
     }
 };
+
+class Solution2 {
+public:
+    bool is_equal(string word,int i){
+        word.erase(i,1);
+        unordered_map<char,int> m;
+        for(int i=0;i<word.size();i++){
+            m[word[i]]++;
+        }
+        for(int i=1;i<word.size();i++){
+            if(m[word[i-1]]!=m[word[i]]){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool equalFrequency(string word) {
+        for(int i=0;i<word.size();i++){
+            if(is_equal(word,i)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
