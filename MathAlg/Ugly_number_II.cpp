@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // time complexity exceeds for large number . 
+    // need to figure out better way.
     bool isugly(int n){
         if(n==1){
             return true;
