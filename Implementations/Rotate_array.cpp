@@ -49,3 +49,21 @@ public:
         nums=ans;
     }
 };
+
+class Solution4 {
+public:
+  // my original idea but failed implementation.
+		void rotate(vector<int>& nums, int k) {
+			k%=nums.size();
+			vector<int> temp;
+			int n = nums.size() - k;
+			for(int i=n ; i<nums.size();i++){
+        temp.push_back(nums[i]);
+      }
+			for(int i=0;i<n;i++){ 
+        temp.push_back(nums[i]);
+      }
+			nums = temp;
+	
+		 }
+}; 
