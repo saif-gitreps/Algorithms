@@ -36,3 +36,16 @@ public:
         reverse(nums.begin()+k,nums.end());
     }
 };
+
+class Genius_Solution {
+public:
+  // i+k%n would go from lets say k= 0 in an array of 7 to -> 3,4,5,6,0,1,2
+    void rotate(vector<int>& nums, int k) {
+        int n= nums.size();
+        vector<int> ans(n);
+      
+        for(int i=0; i<n; i++)
+        ans[(i+k)%n] = nums[i];
+        nums=ans;
+    }
+};
