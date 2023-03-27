@@ -36,3 +36,28 @@ public:
         }
     }
 };
+
+class solution2{
+public:
+  // optimal solution , although i dont understand the solution , will revisit. 
+    int division(int divident,int divisor){
+          if(divident==divisor) return 1;
+          bool sign = (divident>0)==(divisor>0) ? true:false;
+          unsigned int a = abs(divident);
+          unsigned int b = abs(divisor);
+          unsigned int res = 0;
+          while(a >= b) {
+              short count =0;
+              while( a > (b<<count+1)){
+                count++;
+              }
+              res += 1<<count;
+              a -= b<<count;
+          }
+          if(res==1<<32 && sign){
+              return INT_MAX:
+          }
+          return sign? res:-res;
+    }
+  
+};
