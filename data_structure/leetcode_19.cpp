@@ -42,3 +42,35 @@ public:
         return head;
     }
 };
+
+class Solution2 {
+    //unique soln
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) 
+    {  
+        vector<ListNode*> v;
+        
+        v.reserve(30);
+
+        while(head)
+        {
+            v.push_back(head);
+
+            head = head->next;
+        }
+
+        int size = v.size();
+
+        if(size == n)
+        {
+            return v[0]->next;
+        }
+        else
+        {
+            head = v[size - n - 1];
+
+            head->next = v[size - n]->next;
+        }
+        return v[0];
+    }
+};
