@@ -85,6 +85,7 @@ public:
         }
         if(fast==NULL){
             return head->next;
+            // this line means if there is such traversal wherere we reached the end of the list and the ptr is now null
         }
         while(fast->next!=nullptr){
             fast = fast->next;
