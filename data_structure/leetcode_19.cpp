@@ -74,3 +74,25 @@ public:
         return v[0];
     }
 };
+
+class Solution4 {
+public:
+    //typical soln
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *fast=head,*slow=head;
+        for(int i=1;i<=n;i++){
+            fast = fast->next;
+        }
+        if(fast==NULL){
+            return head->next;
+        }
+        while(fast->next!=nullptr){
+            fast = fast->next;
+            slow = slow->next;
+        }
+        ListNode* temp = slow->next;
+        slow->next = temp->next;
+        delete(temp);
+        return head;
+    }
+};
