@@ -31,3 +31,26 @@ public:
       return newstr;
     }
 };
+
+class Solution2 {
+public:
+    string addStrings(string num1, string num2) {
+        int count = 0;
+        int i=num1.size()-1,j=num2.size()-1;
+        string newstr;
+        while(i>=0 || j>=0 || count>0){
+            if(i>=0){
+                count += num1[i]-'0';
+                i--;
+            }
+            if(j>=0){
+                count += num2[j] - '0';
+                j--; 
+            }   
+            newstr.push_back((count%10 + '0'));
+            count /= 10;
+        }
+        reverse(newstr.begin(),newstr.end());
+        return newstr;
+    }
+};
