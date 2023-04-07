@@ -54,3 +54,35 @@ vector<vector<int>> threeSum(vector<int>& nums){
    }
    return newarr;
 }
+
+//final
+class Solutio2n {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+       set<vector<int>> a;
+   vector<vector<int>> newarr;
+   sort(nums.begin(),nums.end());
+   int i=0,j=0,k=0;
+   while(i<nums.size()){
+      j=i+1; k = nums.size()-1;
+      while(j<k){
+        int sum = nums[i]+nums[j]+nums[k]; 
+         if(sum==0){
+            a.insert({nums[i],nums[j],nums[k]});
+            j++; k--;
+         }
+         else if(sum<0){
+             j++;
+         }
+         else{
+             k--;
+         }
+      }
+      i++;
+   }
+   for(auto s: a){
+      newarr.push_back(s);
+   }
+   return newarr;
+    }
+};
