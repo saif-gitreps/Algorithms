@@ -110,3 +110,36 @@ public:
       return (abs(mn-target)<abs(mx-target))? mn:mx;
     }
 };
+
+class Solution5 {
+  // the most optimized solution ever , beat 84%.
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+       vector<int> a;
+       set<int> s;
+       int i=0,j=0,k=0;
+       sort(nums.begin(),nums.end());
+       int mn=-100001,mx=100001;
+       while(i<nums.size()){
+          j= i+1; k = nums.size()-1;
+          while(j<k){
+            int num = nums[i]+nums[j]+nums[k];
+            if(num==target) {return num;}
+             if(num<target){
+               mn = max(num,mn);
+               j++;
+               }
+            else if(num>target){
+                  mx = min(num,mx);
+                  k--;
+               }
+            else{
+                j++;
+                k--;
+             }
+          }
+          i++;
+       }
+      return (abs(mn-target)<abs(mx-target))? mn:mx;
+    }
+};
