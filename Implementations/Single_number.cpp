@@ -23,3 +23,12 @@ public:
 //1) xor of a same number with itself is zero, i.e A ^ A = 0
 //2) xor is commutative that means a ^ b = b ^ a.
 //3) xor of any number with zero is the number itself i.e A ^ 0 = A
+class Solution {
+public:
+    int singleNumber(vector<int>& a) {
+        for(int i=0;i<a.size()-1;i++){
+            a[i+1] = a[i]^a[i+1];
+        }
+        return a[a.size()-1];
+    }
+};
