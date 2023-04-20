@@ -31,4 +31,10 @@ public:
         }
         return a[a.size()-1];
     }
+	  // so what is happening here is ,
+        // we are not taking indivial ans^a[i]
+        // instead its more like
+        // 1^2^4^2^1 
+        // 0 0 4 0 0 , so we are taking the entire arrays xor 
+        // not individual.
 };
