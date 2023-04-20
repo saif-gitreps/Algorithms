@@ -20,3 +20,6 @@ public:
         return nums[nums.size()-1];
     }
 };
+//1) xor of a same number with itself is zero, i.e A ^ A = 0
+//2) xor is commutative that means a ^ b = b ^ a.
+//3) xor of any number with zero is the number itself i.e A ^ 0 = A
