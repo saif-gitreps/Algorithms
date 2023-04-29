@@ -113,3 +113,41 @@ public:
         return head;
     }
 };
+class Solution3 {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        
+        
+       
+        
+        ListNode* newHead = new ListNode();
+
+        ListNode* newDummy = newHead;
+        
+        
+        while(list1 != nullptr && list2 != nullptr){
+            
+            if(list1->val < list2->val){
+                
+                newDummy->next = list1;
+                list1 = list1->next;
+                
+            }else{
+                
+                newDummy->next = list2;
+                list2 = list2->next;
+            }
+            
+            newDummy = newDummy->next;
+        }
+        
+        if(list1) {
+            newDummy->next = list1;
+        }
+        
+        if(list2){
+             newDummy->next = list2;
+        }
+        
+        return newHead->next;
+    }
