@@ -41,6 +41,19 @@ public:
 
 Class solution3{
 public:
+    /*
+    explanation here:
+        so here what it does is ,
+        for example for 4:
+        1
+        100 
+        10000
+        here we bit left shift by 2
+        it goes and becomes 1.
+        then we take the even number of times we had to bit shift
+        and we right shift with n, if it is a power , it will give us the base number(4).
+        else we will get some other number.
+    */
     bool CheckFour(int num){
         if(num<1){
         return false;
