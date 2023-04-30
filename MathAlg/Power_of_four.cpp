@@ -38,3 +38,19 @@ public:
         return false;
     }
 };
+
+Class solution3{
+public:
+    bool CheckFour(int num){
+        if(num<1){
+        return false;
+        }
+        int n = num , count = 0;
+        while(n){
+            n>>=2;
+            count += 2;
+        }
+        return (n<<count)==num;
+    }
+    
+};
