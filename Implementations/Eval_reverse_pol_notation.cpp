@@ -67,3 +67,28 @@ public:
 
         return stack.pop();
     }
+class Solution3 {
+  //compact solution.
+public:
+    int evalRPN(vector<string>& tokens) {
+        std::stack<int> s;
+        for (const std::string& token : tokens) {
+            if (std::isalnum(token[0]) || token.size() > 1) {
+                int x = std::stoi(token);
+                s.push(x);
+            } else {
+                int y = s.top(); s.pop();
+                int x = s.top(); s.pop();
+                int z = 0;
+                switch (token[0]) {
+                    case '+': z = x + y; break;
+                    case '-': z = x - y; break;
+                    case '*': z = x * y; break;
+                    default: z = x / y; break;
+                }
+                s.push(z);
+            }
+        }
+        return s.top();
+    }
+};
