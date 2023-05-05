@@ -1,5 +1,5 @@
 class Solution {
-public:
+public://
     string oddString(vector<string>& words) {
         map<vector<int>,int> m;
         vector<vector<int>> a;
