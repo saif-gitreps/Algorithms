@@ -35,3 +35,20 @@ public:
         }
     }
 };
+
+class Solution3 {
+    //linear solution.
+public:
+    void moveZeroes(vector<int>& nums) {
+        if(nums.size()==NULL){
+            return; 
+        }
+        int j = 0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]!=0){
+                swap(nums[i],nums[j]);
+                j++;
+            }
+        }
+    }
+};
