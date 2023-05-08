@@ -37,3 +37,19 @@ public:
        return ans;
     }
 };
+class Solution3 {
+  // this is a good readable solution.
+public:
+    vector<int> grayCode(int n) {
+        if (n == 0) {
+            return {0};
+        }
+        vector<int> gray = grayCode(n - 1);
+        int add = 1 << (n - 1);
+        int size = gray.size();
+        for (int i = size - 1; i >= 0; i--) {
+            gray.push_back(add + gray[i]);
+        }
+        return gray;
+    }
+};
