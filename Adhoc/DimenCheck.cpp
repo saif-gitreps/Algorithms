@@ -4,6 +4,7 @@ using namespace std;
 #define ll long long int
 #define newline() "\n"
 #define enter_arr(x,n) for(int i=0;i<n;i++)cin>>x[i]
+#define newline() "\n"
 const int MAXN = 100010;
 void solve(){
    bool yes1 = false,yes2 = false;
