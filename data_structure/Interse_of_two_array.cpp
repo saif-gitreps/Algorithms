@@ -33,3 +33,22 @@ public:
     return ans;
     }
 };
+
+class Solution3 {
+public:
+    // apparently using undoreded map is much faster.
+    vector<int> intersection(vector<int>& a, vector<int>& b){
+    vector<int> ans;
+   unordered_map<int,int> m;
+   for(int i=0;i<a.size();i++){
+      m[a[i]]++;
+   }
+   for(int i=0;i<b.size();i++){
+      if(m[b[i]]>0){
+         ans.push_back(b[i]);
+         m[b[i]] = 0;
+      }
+   }
+   return ans;
+    }
+};
