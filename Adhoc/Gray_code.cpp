@@ -17,3 +17,23 @@ public:
         backtracking(bits, res, k-1);
     }
 };
+
+class Solution {
+  // i uderstood the thoery little bit.
+public:
+    vector<int> grayCode(int n) {
+       vector<int> ans;
+       ans.push_back(0);
+
+       if(n==0) return ans;
+       ans.push_back(1);
+       int current  = 1 ;
+       for(int i=2;i<=n;i++){
+           current *= 2;
+           for(int j = ans.size()-1;j>=0;j--){
+               ans.push_back(current+ans[j]);
+           }
+       }
+       return ans;
+    }
+};
