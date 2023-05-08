@@ -71,6 +71,7 @@ public:
 
 class Solution3 {
   // very slow solution but it worked.
+  // not very proud of it.
 public:
     int threeSumClosest(vector<int>& nums, int target) {
        vector<int> a;
