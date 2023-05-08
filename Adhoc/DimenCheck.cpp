@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define MAX 13
 #define ll long long int
 #define newline() "\n"
 #define enter_arr(x,n) for(int i=0;i<n;i++)cin>>x[i]
