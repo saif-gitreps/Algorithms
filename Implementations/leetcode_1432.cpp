@@ -46,3 +46,52 @@ public:
         return mx;
     }
 };
+
+class Solution {
+  //best solution.
+public:
+    int maxDiff(int num) {
+        return getMax(num) - getMin(num);
+    }
+
+    int getMax(int num) {
+        string s = to_string(num);
+        char ch = s[0];
+        for (const auto& c: s) {
+            if (c != '9') {
+                ch = c;
+                break;
+            }
+        }
+        int ans = 0;
+        for (const auto& c: s) {
+            ans = ans * 10 + (c == ch ? 9 : (c-'0'));
+        }
+
+        return ans;
+    }
+
+    int getMin(int num) {
+        string s = to_string(num);
+        char ch = s[0];
+        if (ch == '1') {
+            for (int i = 1; i < s.size(); i++) {
+                char c = s[i];
+                if (c != '0' && c != '1') {
+                    ch = c;
+                    break;
+                }
+            }
+        }
+        int ans = 0;
+        for (const auto& c: s) {
+            ans = ans * 10 + (c == ch
+                ? ch == s[0]
+                    ? 1
+                    : 0
+                : (c-'0'));
+        }
+
+        return ans;
+    }
+};
