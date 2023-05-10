@@ -22,3 +22,18 @@ public:
         return a[a.size()-1];
     }
 };
+
+class Solution2 {
+  // i dont really understand the solution.
+  // refer https://www.youtube.com/watch?v=cOFAmaMBVps&t=59s&ab_channel=Techdose 
+public:
+    int singleNumber(vector<int>& a) {
+        int one =0;
+        int two =0;
+        for(auto num: a){
+            one = (one^num) & (~two);
+            two = (two^num) & (~one);
+        }
+        return one;
+    }
+};
