@@ -51,3 +51,57 @@ public:
 
 }
 };
+
+
+class Solution {
+    // try two , didnt work.
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+    if (head == nullptr || head->next == nullptr) {
+        return head;
+    }
+    
+    ListNode* ptr = head;
+    unordered_map<int, int> mp;
+    
+    while (ptr != nullptr && ptr->next != nullptr) {
+        if (ptr->val == ptr->next->val) {
+            ListNode* temp = ptr->next;
+            mp[ptr->val]++;
+            ptr->next = ptr->next->next;
+            delete temp;
+        }
+        else {
+            ptr = ptr->next;
+        }
+    }
+    
+    if (mp[head->val] > 0) {
+        ListNode* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    
+    ptr = head;
+    ListNode* prev = nullptr;
+    
+    while (ptr != nullptr) {
+        if (mp[ptr->val] > 0) {
+            if (prev != nullptr) {
+                prev->next = ptr->next;
+            }
+            ListNode* temp = ptr;
+            ptr = ptr->next;
+            delete temp;
+        }
+        else {
+            prev = ptr;
+            ptr = ptr->next;
+        }
+    }
+    
+    return head;
+}
+
+    
+};
