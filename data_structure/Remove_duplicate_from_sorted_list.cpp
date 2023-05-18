@@ -20,7 +20,34 @@ ListNode* deleteDuplicates(ListNode* head) {
         }
         return head;
     }
-
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+  // modified solution , so here the deletiong conintues as long as we have a two matching pairs.
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *temp,*ptr=head;
+        while(ptr!=NULL && ptr->next!=NULL){
+            if(ptr->val==ptr->next->val){
+                temp = ptr->next;
+                ptr->next = temp->next;
+                delete temp;
+            }
+            else{
+                ptr = ptr->next;
+            }
+        }
+        return head;
+    }
+};
 
 
 
