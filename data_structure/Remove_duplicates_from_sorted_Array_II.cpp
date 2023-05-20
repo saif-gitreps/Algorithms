@@ -65,3 +65,32 @@ public:
         return n-dup;
     }
 };
+
+class Solution {
+  // works till 20th test case , cant work frm test case to test cse , need to see editoirla
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1){
+            return n;
+        }
+        int limit = n-1,dup = 0;
+        for(int i=0;i+2<n;i++){
+            if(nums[i]==nums[i+1] && nums[i+1]==nums[i+2]){
+                dup++;
+                nums.push_back(0);
+                limit++;
+                int k = i;
+                while(k+1<limit){
+                    swap(nums[k],nums[k+1]);
+                    k++;
+                }
+                i--;
+            }
+        }
+        if(n-dup<2){
+            return (n-dup)+1;
+        }
+        return n-dup;
+    }
+};
