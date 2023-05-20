@@ -42,3 +42,26 @@ public:
         return n-dup;
     }
 };
+
+class Solution {
+  // with this algorithm , part of it works , now add i-- at the end of the if case , and part of other test
+  // cases works and some dont. so i dont know to balance it as of now.
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int limit = n-1,dup = 0;
+        for(int i=0;i+2<n;i++){
+            if(nums[i]==nums[i+1] && nums[i+1]==nums[i+2]){
+                dup++;
+                nums.push_back(0);
+                limit++;
+                int k = i;
+                while(k+1<limit){
+                    swap(nums[k],nums[k+1]);
+                    k++;
+                }
+            }
+        }
+        return n-dup;
+    }
+};
