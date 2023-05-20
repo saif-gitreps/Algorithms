@@ -34,3 +34,26 @@ public:
         return a;
     }
 };
+
+class Solution {
+  // understood this solution . this is the best in terms of time space complexity.
+  // in here every position for positive and negative is fixed, so it doesnt matter if 
+  // in the original array we have -4,-7,-7. since the space is left for each negative and positive. 
+  // all the consecutive negative nubers in the ogirinal arrays will be placed after an interval of 2.
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        int neg=1,pos=0;
+        vector<int> a(nums.size());
+        for(auto x: nums){
+            if(x<0){
+                a[neg] = x;
+                neg += 2;
+            }
+            else{
+                a[pos] = x;
+                pos += 2;
+            }
+        }
+        return a;
+    }
+};
