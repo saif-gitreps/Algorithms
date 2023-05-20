@@ -1,3 +1,5 @@
+//PROBLEM:  Partition Array According to Given Pivot
+
 class Solution {
   // first attempt, i worked hard on this one ,didnt want to discard them.
 public:
@@ -49,6 +51,35 @@ public:
         while(pq.empty()!=true){
             a.push_back(pq.top());
             pq.pop();
+        }
+        for(auto x:same){
+            a.push_back(x);
+        }
+        for(auto x:nums){
+            if(x>pivot){
+                a.push_back(x);
+            }
+        }
+        return a;
+        
+    }
+};
+
+class Solution {
+  // ok my issue was i didnt read the problem properly , now i executed it seemingly , 
+  // next time i will read the problem properly . thaks to stack , queue , set , you guys are life saver.
+public:
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        vector<int> a;
+        vector<int> same;
+        for(int i=0;i<nums.size();i++){ 
+            if(nums[i]==pivot){
+                same.push_back(nums[i]);
+            }
+        }
+        for(auto x: nums){
+            if(x<pivot)
+            a.push_back(x);
         }
         for(auto x:same){
             a.push_back(x);
