@@ -107,3 +107,19 @@ public:
         return i;
     }
 };
+class Solution {
+  // a much better algorithm , i need to think like this more now.
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n=nums.size();
+        int j=2;
+        if(n<=2) return n;;
+        for(int i=2;i<n;i++)
+        {
+            if(nums[i]==nums[j-1] and nums[j-1]==nums[j-2]) continue;
+            else nums[j++]=nums[i];
+        }
+
+        return j;
+    }
+};
