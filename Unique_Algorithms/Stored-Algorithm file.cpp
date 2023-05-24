@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long int
 #define newline() "\n"
 #define FAST(SUIII); ios_base::sync_with_stdio(false);cin.tie(NULL);
 const int MAXN = 100010;
