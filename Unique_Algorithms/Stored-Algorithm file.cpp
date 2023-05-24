@@ -2,7 +2,6 @@
 using namespace std;
 #define ll long long int
 #define newline() "\n"
-#define FAST(SUIII); ios_base::sync_with_stdio(false);cin.tie(NULL);
 const int MAXN = 100010;
 ll LCM(ll a,ll b){
    return (a*b)/__gcd(a,b);
