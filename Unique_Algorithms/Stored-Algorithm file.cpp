@@ -1,9 +1,4 @@
 #include <bits/stdc++.h>
-/*pastebaord
---------------------------------
-_________________________________
-*/
-
 using namespace std;
 #define ll long long int
 #define newline() "\n"
