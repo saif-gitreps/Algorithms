@@ -98,3 +98,25 @@ public:
         }  
     }
 };
+
+class Solution {
+    // ok we really didnt have to make that many test cases condition 
+    // we could have just added return left, i should have thought and analyzed left.
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int mid,left =0,right = nums.size()-1;
+        while(left<=right){
+            mid = left + (right-left)/2;
+            if(nums[mid]==target){
+                return mid;
+            }
+            else if(nums[mid]>target){
+                right = mid-1;
+            }
+            else{
+                left = mid+1;
+            }
+        }
+        return left;
+    }
+};
