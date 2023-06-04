@@ -28,3 +28,21 @@ void fnc(vector<int> &a,int b,vector<int> &v, int i){
 	}
 }
 };
+
+class Solution {
+	// attempt 2 : working on it , let me finish this stpupid bangla assignment first.
+public:
+    vector<vector<int>> final_ds;
+    void rev(int i,vector<int> a,vector<int> &ds,int sum,int target){
+        if(i==a.size() || sum==target){
+            if(sum==target){
+                final_ds.push_back(ds);
+            }
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& a, int b) {
+
+       
+    }
+}
+};
