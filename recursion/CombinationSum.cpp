@@ -41,7 +41,7 @@ public:
         }
     }
     vector<vector<int>> combinationSum(vector<int>& a, int b) {
-
+        rev();
        
     }
 }
