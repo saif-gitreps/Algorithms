@@ -1,7 +1,7 @@
 class Solution {
     // attempt 1 : passed test case 1.
     // i dont know why it is showing bug for second test case.
-    
+    // it also worked till 21 test cases, the second test case was hindering it.
 public:
     void rev(int i,vector<int> a,set<vector<int>>& final_ds,vector<int>& ds,int sum,int target){
         if(i==a.size()){
