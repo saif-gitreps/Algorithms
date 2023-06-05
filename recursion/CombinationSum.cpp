@@ -64,17 +64,19 @@ class Solution {
 public:
     vector<vector<int>> final_ds;
     void rev(int i,int sum,vector<int>& ds,vector<int> a){
-        if(sum==0){
-            final_ds.push_back(ds);
+        if(i==a.size()){
+            if(sum==0){
+                final_ds.push_back(ds); return;
+            }
             return;
         }
-        if(i==a.size() || sum<0){
-            return;
+        if(a[i]<=sum){
+            ds.push_back(a[i]);
+            rev(i,sum-a[i],ds,a);
+            ds.pop_back();
         }
-        ds.push_back(a[i]);
-        rev(i,sum-a[i],ds,a);
-        ds.pop_back();
         rev(i+1,sum,ds,a);
+
     }
     vector<vector<int>> combinationSum(vector<int>& a, int b) {
         vector<int> ds;
