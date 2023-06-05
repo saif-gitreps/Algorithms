@@ -1,6 +1,6 @@
 class Solution {
 public:
-		vector<vector<int>> ans;
+	vector<vector<int>> ans;
     vector<vector<int>> combinationSum(vector<int>& a, int b) {
 
         sort(a.begin(),a.end());
@@ -58,4 +58,10 @@ public:
         return final_ds;
     }
 };
+};
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& a, int b) {
+    }
 };
