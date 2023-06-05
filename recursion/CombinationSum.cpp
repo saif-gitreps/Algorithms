@@ -62,6 +62,23 @@ public:
 
 class Solution {
 public:
+    vector<vector<int>> final_ds;
+    void rev(int i,int sum,vector<int>& ds,vector<int> a){
+        if(sum==0){
+            final_ds.push_back(ds);
+            return;
+        }
+        if(i==a.size() || sum<0){
+            return;
+        }
+        ds.push_back(a[i]);
+        rev(i,sum-a[i],ds,a);
+        ds.pop_back();
+        rev(i+1,sum,ds,a);
+    }
     vector<vector<int>> combinationSum(vector<int>& a, int b) {
+        vector<int> ds;
+        rev(0,b,ds,a);
+        return final_ds;
     }
 };
