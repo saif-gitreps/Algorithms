@@ -93,3 +93,35 @@ public:
         return finally;
     }
 };
+
+class Solution {
+    // attempt 3: worked till 23 test case , this one is more intuitive and easily implmented.
+    // but it shows MLE.
+public:
+    set<vector<int>> s;
+    void rev(int i,int sum,vector<int> &ds,vector<int> a){
+         if(i==a.size()){ 
+           if(sum==0){
+               s.insert(ds);
+               return;
+           }
+           return;
+        }
+        if(sum>=a[i]){
+            ds.push_back(a[i]);
+            rev(i+1,sum-a[i],ds,a);
+            ds.pop_back();
+        }
+        rev(i+1,sum,ds,a);
+    } 
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<vector<int>> final_ds;
+        vector<int> ds;
+        rev(0,target,ds,candidates);
+        for(auto x: s){
+            final_ds.push_back(x);
+        }
+        return final_ds;
+    }
+};
