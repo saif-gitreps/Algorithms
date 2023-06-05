@@ -31,18 +31,31 @@ void fnc(vector<int> &a,int b,vector<int> &v, int i){
 
 class Solution {
 	// attempt 2 : working on it , let me finish this stpupid bangla assignment first.
+    // SUIIIIIIIIIIIIIIII, i did , my intention worked , i am a proooo;
+public:
+    class Solution {
 public:
     vector<vector<int>> final_ds;
     void rev(int i,vector<int> a,vector<int> &ds,int sum,int target){
-        if(i==a.size() || sum==target){
+        if(i==a.size() || sum==target || sum>target){
             if(sum==target){
                 final_ds.push_back(ds);
+                return;
             }
+            return;
         }
+        sum += a[i];
+        ds.push_back(a[i]);
+        rev(i,a,ds,sum,target);
+        ds.pop_back();
+        sum -= a[i];
+        rev(i+1,a,ds,sum,target);
+
     }
     vector<vector<int>> combinationSum(vector<int>& a, int b) {
-        rev();
-       
+        vector<int> ds;
+        rev(0,a,ds,0,b);
+        return final_ds;
     }
-}
+};
 };
