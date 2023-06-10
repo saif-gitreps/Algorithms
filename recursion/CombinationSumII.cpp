@@ -126,3 +126,30 @@ public:
     }
 };
 
+class Solution {
+public:
+    vector<vector<int>> s;
+    void rev(int ind,int sum,vector<int> &ds,vector<int> a){
+         if(sum==0){
+            s.push_back(ds);
+           return;
+         }
+         for(int i=ind;ind<a.size();i++){
+            if(i>ind && a[i]==a[i+1]){
+                continue;
+            }
+            if(a[i]>sum){
+                break;
+            }
+            ds.push_back(a[i]);
+            rev(i+1,sum-a[i],ds,a);
+            ds.pop_back();
+         }
+    } 
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<int> ds;
+        rev(0,target,ds,candidates);
+        return s;
+    }
+};
