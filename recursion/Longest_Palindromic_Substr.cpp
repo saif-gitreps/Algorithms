@@ -91,3 +91,40 @@ public:
         return ans;
     }
 };
+class Solution {
+    // 20 test cases and memeory limit exceeding , first attempt was better.
+public:
+    bool check(string s){
+        for(int i=0;i<s.size();i++){
+            if(s[i]!=s[s.size()-i-1]){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool check_substr(string s,string str){
+        if(s.find(str)!=string::npos){
+            return true;
+        }
+        return false;
+    }
+    string ans = "";
+    void rev(int i,string s,string str){
+        if(i==s.size()){
+            if(check(str) && check_substr(s,str)){
+               if(ans.size()<str.size()){
+                  ans = str;
+               }
+            }
+            return;
+        }
+        str.push_back(s[i]);
+        rev(i+1,s,str);
+        str.pop_back();
+        rev(i+1,s,str);
+    }
+    string longestPalindrome(string s) {
+        rev(0,s,"");
+        return ans;
+    }
+};
