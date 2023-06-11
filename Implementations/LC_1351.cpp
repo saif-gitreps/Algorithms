@@ -17,3 +17,38 @@ public:
         return count;
     }
 };
+
+class Solution {
+    // nLogn attempt , failed at 10 cases.
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+        int i=0;int m=grid[0].size();int count=0;
+        for(int i=0;i<grid.size();i++){
+            if(grid[i][0]<0){
+                count+=m;
+                continue;
+            }
+            else if(grid[i][m-1]>=0){
+                continue;
+            }
+            int left = 0,right = m-1;
+            int mid;
+            while(left<=right){
+                mid = (left+right)/2;
+                if(mid-1>=0 && grid[i][mid]<0){
+                    if(grid[i][mid-1]>=0){
+                        break;
+                    }
+                }
+                else if(grid[i][mid]>=0){
+                    left = mid+1;
+                }
+                else{
+                    right = mid;
+                }
+            }
+            count += (m-mid);
+        }
+        return count;
+    }
+};
