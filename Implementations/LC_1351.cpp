@@ -52,3 +52,30 @@ public:
         return count;
     }
 };
+
+class Solution {
+    // correct method , apparently BS will exit exactly on the negative number 
+    // i didnt need any special methods.
+    // on the code above the few lines before the bs is correct but idk why LC is showing more
+    // time taken for it lmaooo.
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+        int i=0;int m=grid[0].size();int count=0;
+        for(int i=0;i<grid.size();i++){
+            int left = 0, right = m - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (grid[i][mid] < 0) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        count += m - left;
+        }
+        return count;
+    }
+};
