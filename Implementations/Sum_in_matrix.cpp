@@ -69,3 +69,23 @@ public:
         return sum;
     }
 };
+
+class Solution {
+    probably O(n^2 logn).
+public:
+    int matrixSum(vector<vector<int>>& nums) {
+       for(int i=0;i<nums.size();i++){
+      sort(nums[i].begin(),nums[i].end());
+   }
+   int len_inner_arr = nums[0].size();
+   int ans = 0;
+   for(int i=0;i<len_inner_arr;i++){
+      int mx = -1;
+      for(int block=0;block<nums.size();block++){
+         mx = max(mx,nums[block][i]);
+      }
+      ans += mx;
+   }
+   return ans;
+    }
+};
