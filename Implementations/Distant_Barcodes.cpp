@@ -28,3 +28,34 @@ public:
     }
 
 };
+
+class Solution {
+//worked till 18 cases.
+public:
+    vector<int> rearrangeBarcodes(vector<int>& b) {
+        map<int,int> mp;
+        sort(b.begin(),b.end());
+        for(int i=0;i<b.size();i++){
+            mp[b[i]]++;
+        }
+        vector<int> ans;
+        int curr = -1;
+
+        for(int i=0;i<b.size();i++){
+            for(auto x: mp){
+                    if(x.second>0 && curr!=x.first){
+                        curr = x.first;
+                        mp[curr]--;
+                        break;
+                    }
+                    else{
+                        continue;
+                    }
+               }
+            //  if(ans.back()!=curr)
+                    ans.push_back(curr);
+        }
+        return ans;
+    }
+
+};
