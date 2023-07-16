@@ -1,0 +1,42 @@
+class TimeMap {
+// i tried , i dont know why it is not working.
+private:
+    vector<pair<int,pair<string,string>>> a;
+public:
+    TimeMap() {
+    }
+    
+    void set(string key, string value, int timestamp) {
+        this->a.push_back({timestamp,{key,value}});
+        sort(a.begin(),a.end());
+    }
+    
+    string get(string key, int timestamp) {
+        pair<int,pair<string,string>> temp(timestamp,{"",""});
+        auto it = upper_bound(this->a.begin(),this->a.end(),temp);
+        if(it!=this->a.begin()){
+            if(it!=this->a.end()){
+                pair<int,pair<string,string>> ans = *it;
+                if(ans.second.first==key && key!=""){
+                    return ans.second.second; 
+                }
+            }
+            it--;
+            pair<int,pair<string,string>> an = *it;
+            if(an.second.first==key){
+                return an.second.second; 
+            }
+        }
+        else{
+            return "";
+        }
+        return "";
+    }
+};
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap* obj = new TimeMap();
+ * obj->set(key,value,timestamp);
+ * string param_2 = obj->get(key,timestamp);
+ */
