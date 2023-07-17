@@ -1,6 +1,7 @@
 class Solution {
 // first attempt , passed till 168/170 cases. damn 
 // second attempt, commented out that condition , and it passed but it was the slowest algorithm ever.
+// third, added a break in the hash vector iterator.
 public:
     void setZeroes(vector<vector<int>>& a) {
         int row = a[0].size();
@@ -27,6 +28,7 @@ public:
                     if(s.first==i || s.second==j){
                         a[i][j] = 0;
                         count++;
+                        break;
                     }
                 }
             }
