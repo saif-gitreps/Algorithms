@@ -37,3 +37,34 @@ public:
         
     }
 };
+
+class Solution {
+// O(n^2) time solution , with O(row+col) space  
+public:
+   void setZeroes(vector<vector<int>>& a) {
+        int row = a[0].size();
+        int col = a.size();
+        int count = 0;
+        vector<int> row_arr(row+1);
+        vector<int> col_arr(col+1);
+        for(int i=0;i<col;i++){
+            for(int j=0;j<row;j++){
+                if(a[i][j]==0){
+                    row_arr[j] = -1;
+                    col_arr[i] = -1;
+                }
+            }
+        }
+        for(int i=0;i<col;i++){
+            for(int j=0;j<row;j++){
+                if(col_arr[i]==-1){
+                  a[i][j] = 0;
+                }
+                else if(row_arr[j]==-1){
+                  a[i][j] = 0;
+                }
+            }
+        }
+        
+    }
+};
