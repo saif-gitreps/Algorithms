@@ -1,2 +1,2 @@
 # Solved-problems
-Here is all the problems that i solved in online judges , i think it is the best place to store them all.
+All the problems that I have solved, along with multiple solutions from various online judges like codeforces.com, leetcode.com, hackerrank.com, and many more.
