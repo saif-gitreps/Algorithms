@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool yes(char s){
+         if(s>='A' && s<='Z'){
+
+      s += 32;
+
+      }
+
+   if(s=='a' || s=='o' || s=='e' || s=='i' || s=='u'){
+
+      return true;}
+
+      return false;
+
+   }
+    string reverseVowels(string s) {
+        	 string t;
+
+	 for(auto p: s) {
+
+	    if(yes(p))
+
+	        t.push_back(p);
+
+	  }
+
+	 for(int p=0;p<s.size();p++){
+
+	       if(yes(s[p])){
+
+	          s[p]= t[t.size()-1];
+
+	          t.pop_back();
+
+	          }
+
+	 }
+
+	 return s;
+    }
+};
