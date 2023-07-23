@@ -65,3 +65,58 @@ int main(){
     solve();     	 	 	 	
      	 	 	 	 	 	
 }
+
+
+//====================================
+class Solution {
+// the proper solution , i understood what the solution wanted.
+public:
+int next(vector<int> &a,int curr,bool isForward){
+    int n = a.size();
+    bool direction = a[curr]>=0;
+    //this checks if the next dir is not 
+    //going on the same path as our
+    //graph is getting travesered to.
+    
+    if(direction!=isForward){
+        return -1;
+    }
+    int ans = (curr+a[curr])%n;
+    if(ans<0){
+        ans += n;
+    }
+    //we dont accept self loops.
+    if(ans==curr){
+        return -1;
+    }
+    return ans;
+}
+    bool circularArrayLoop(vector<int>& a) {
+    int n = a.size();
+    if(n<=1){
+        return false;
+    }
+    for(int i=0;i<n;i++){
+        int slow=i,fast=i;
+        int isForward = a[i]>=0;
+        while(true){
+            slow = next(a,slow,isForward);            if(slow==-1){
+                break;
+            }
+            fast = next(a,fast,isForward);
+            if(fast==-1){
+                break;
+            }
+            fast = next(a,fast,isForward);
+            if(fast==-1){
+                break;
+            }
+            if(fast==slow){
+                return true;
+            }
+        }    
+    }
+    return false;
+    }
+};
+
