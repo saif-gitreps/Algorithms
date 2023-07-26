@@ -71,3 +71,43 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+// elegant solution.
+public:
+    string addBinary(string a, string b) 
+    {
+        int n=a.size();
+        int m=b.size();
+        int add=0;
+        string c;
+        while(n>0 || m>0 || add)
+        {
+          --n;--m;
+          int get=(n>=0 && a[n]=='1'?1:0) + (m>=0 && b[m]=='1'?1:0) + add;
+          if(get==3)
+          {
+            c+='1';
+            add=1;
+          }
+          else if(get==2)
+          {
+            c+='0';
+            add=1;
+          }
+          else if(get)
+          {
+            c+='1';
+            add=0;
+          }
+          else
+          {
+            c+='0';
+            add=0;
+          }
+        }
+        reverse(c.begin(),c.end());
+        return c;
+    }
+};
