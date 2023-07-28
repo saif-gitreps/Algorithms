@@ -19,3 +19,20 @@ public:
         return -1;
     }
 };
+
+class Solution {
+// my solution , O(n) and space com of O(1)
+public:
+    int kthFactor(int n, int k) {
+        int p =0;
+        for(int i=1;i<=n;i++){
+            if(n%i==0){
+                p++;
+            }
+            if(p==k){
+                return i;
+            }
+        }
+        return -1;
+    }
+};
