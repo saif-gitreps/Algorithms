@@ -28,7 +28,8 @@ public:
 };
 
 class Solution {
-// worked till 75 test cases.
+// solution passed, the fastest algorithm for this there is, dont ask me how i solved it, i just pulled it out of thin air . 
+// good shi i guess.
 public:
     int longestSubarray(vector<int>& a) {
         int marked = -1;
@@ -49,7 +50,7 @@ public:
                 max_seq=max(max_seq,seq);
             }
         }
-        if(seq==0 || seq==1){
+        if(max_seq==-1){
             return seq;
         }
         return max_seq==a.size()?max_seq-1:max_seq;
