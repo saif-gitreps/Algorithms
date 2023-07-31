@@ -56,3 +56,25 @@ public:
         return max_seq==a.size()?max_seq-1:max_seq;
     }
 };
+class Solution {
+// not my solution , but cheecky solution
+
+public:
+    int longestSubarray(vector<int>& nums) {
+       int count=0;
+       vector<int> ans;
+       for(int i=0;i<nums.size();i++){
+           if (nums[i]==1)
+               count++;
+            else{
+                ans.push_back(count);
+                count = 0;
+            }
+       }
+       ans.push_back(count);
+       int l = 0;
+       for(int i=1;i<ans.size();i++)
+           l = max(l,ans[i-1]+ans[i]);
+        return (ans.size()==1)?ans[0]-1:l;
+    }
+};
