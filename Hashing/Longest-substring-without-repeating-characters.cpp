@@ -21,3 +21,25 @@ public:
         return max_len==-1?0:max_len;
     }
 };
+class Solution {
+//attempt 2: cant figure out the damn thing 
+public:
+    int lengthOfLongestSubstring(string s) {
+        int max_len = -1;
+        int seq = 0;
+        unordered_map<char,int> mp;
+        for(int i = 0 ; i<s.size(); i++){
+            if(mp.count(s[i])==false){
+                mp[s[i]] = i;
+                seq++;
+                max_len = max(max_len,seq);
+            }
+            else{
+                seq = abs((mp[s[i]]+1)-(i+1));
+                mp[s[i]] = i;
+                 max_len = max(max_len,seq);
+            }
+        }
+        return max_len==-1?0:max_len;
+    }
+};
