@@ -1,5 +1,8 @@
 class Solution {
 //worked till 15 cases.
+//updated: if i just sort it in the main call , this solution is also acceptable but
+//It is very memory intenisve and takes even more time but it works. 
+//prefer the second solution.
 public:
     void rev(int i,vector<int> a,vector<int> &ds,set<vector<int>> &ans){
         ans.insert(ds);
@@ -13,6 +16,7 @@ public:
         set<vector<int>> ans;
         vector<vector<int>> arr;
         vector<int> ds;
+        sort(nums.begin(),nums.end());
         rev(0,nums,ds,ans);
         for(auto a:ans){
             arr.push_back(a);
