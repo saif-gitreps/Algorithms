@@ -74,3 +74,32 @@ vector<string> generateParenthesis(int n) {
 
     }
 };
+
+class Solution {
+// i prefer this way , its easier to understand.
+public:
+    void kev(int open,int close,string ds,int n,vector<string> &ans){
+      if(ds.size() ==n*2){
+         ans.push_back(ds);
+         return;
+      }
+      if(open<n){
+         ds.push_back('(');
+         kev(open+1,close,ds,n,ans);
+         ds.pop_back();
+      }
+      if(close<open){
+         ds.push_back(')');
+         kev(open,close+1,ds,n,ans);
+         ds.pop_back();
+      }
+      
+    }
+vector<string> generateParenthesis(int n) {
+        
+        vector<string> ans;
+        kev(0,0,"",n,ans);
+        return ans;
+
+    }
+};
