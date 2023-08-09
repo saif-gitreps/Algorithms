@@ -49,3 +49,28 @@ void kev(int i,string &a,set<string> &ans){
         return final;
     }
 };
+
+class Solution {
+// this worked.
+public:
+    void kev(int open,int close,string ds,int n,vector<string> &ans){
+      if(ds.size() ==n*2){
+         ans.push_back(ds);
+         return;
+      }
+      if(open<n){
+         kev(open+1,close,ds+"(",n,ans);
+      }
+      if(close<open){
+         kev(open,close+1,ds+')',n,ans);
+      }
+      
+    }
+vector<string> generateParenthesis(int n) {
+        
+        vector<string> ans;
+        kev(0,0,"",n,ans);
+        return ans;
+
+    }
+};
