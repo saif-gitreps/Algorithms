@@ -1,4 +1,40 @@
 class Solution {
+// attempt 1 , worked for 35 cases, but some logic were missing.
+public:
+    string ans = "";
+    void kev(int i,string &ds,int n,int k,int lim){
+        if(i==n){
+            if(k==lim){
+                ans = ds;
+                return;
+            }
+            k++;
+            return;
+        }
+        if(ds[i-1]!='a' || ds.size()==0){
+            ds+="a";
+            kev(i+1,ds,n,k,lim);
+            ds.pop_back();
+        }
+        if(ds[i-1]!='b' || ds.size()==0){
+            ds+="b";
+            kev(i+1,ds,n,k,lim);
+            ds.pop_back();
+        }
+        if(ds[i-1]!='c' || ds.size()==0){
+            ds+="c";
+            kev(i+1,ds,n,k,lim);
+            ds.pop_back();
+        }
+    }
+    string getHappyString(int n, int k) {
+        string ds = "";
+        kev(1,ds,n,1,k);
+        return ans;
+    }
+};
+
+class Solution {
 public:
     vector<string> ans;
     void kev(int i,string &ds,int n){
