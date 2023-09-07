@@ -78,3 +78,41 @@ public:
 
     }
 };
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+// working solution.
+public:
+    int ans = 0;
+    void pre(TreeNode *root,int ds){
+        if(root == NULL){
+            return;
+        }
+        ds = ds*10;
+        ds += (root->val);
+
+        if(root->left == NULL && root->right == NULL){
+            ans += ds;
+            return;
+        }
+        pre(root->left,ds);
+        pre(root->right,ds);
+    }
+    int sumNumbers(TreeNode* root) {
+        int ds = 0;
+        pre(root,ds);
+        return ans;
+
+    }
+};
