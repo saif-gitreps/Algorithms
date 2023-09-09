@@ -1,5 +1,5 @@
 class Solution {
-// attempt 1.
+// attempt 2 . redcued 2nd loop by half.
 public:
     bool isPalindrome(string s) {
         string str = "";
@@ -16,7 +16,7 @@ public:
         }
 
         int n = str.size();
-        for(int i = 0 ; i < str.size(); i++){
+        for(int i = 0 ; i < str.size() / 2 ; i++){
           if(str[i] != str[n - i - 1]){
             return false;
           }
