@@ -32,3 +32,46 @@ public:
     }
 };
 
+class Solution {
+// great ! shows TLE NOW!
+public:
+    int partition(vector<int> &a,int left,int right){
+    int l = left;
+    int r = right;
+
+    // a[l] is our pivot.
+
+    while( l < r){
+        if(a[l+1]  <= a[l]){
+            swap(a[l+1] , a[l]);
+            l++;
+        }
+        else if(a[r] > a[l]){
+            r--;
+        }
+        else{
+            // this condition is triggered when
+            // a[l + 1] is greater than pivot 
+            // and a[r] is smaller than pivot. 
+            swap(a[r] , a[l + 1 ]);
+        }
+    }
+    return l;
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        int index = partition(nums,0,nums.size()-1);
+        while(true){
+            if((nums.size() - index) == k) {
+                return nums[index];
+            }
+            else if((nums.size() - index) < k){
+                index = partition(nums,0,index-1);
+            }
+            else{
+                index = partition(nums,index+1,nums.size()-1);
+            }
+        }
+        return -1;
+    }
+};
+
