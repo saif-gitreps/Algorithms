@@ -11,6 +11,7 @@ class Solution {
 // another obvious solution but with priority queue.
 // space - O(n).
 // time - O(N log (N))
+// also forgot deleting or poping from pq is also O(log n) {since its a heap tree}.
 public:
     int findKthLargest(vector<int>& nums, int k) {
         priority_queue<int> pq;
