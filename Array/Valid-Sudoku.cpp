@@ -98,21 +98,39 @@ public:
     }
 };
 
+class Solution {
+/* optimal solution:
+We got 3 matrix map and one 3D matrix map for hashing.
+From my code i realised i didnt need 2 difference traversal of row and column , we could just do the same in one traversal.
+Now for the edge case of inner block.
 
+row/3 and col/3 means that imagine the first first from left , its index is on a[0][0] -> a[2][2] for example
+. now row/3 and col/3 means 0/3 is 0 and 2/3 is also 0 , so the first block from left is at index 00 .
+the rest are:
+00 01 02
+10 11 12
+20 21 22
 
-int isValidSudoku(char** board, int boardRowSize, int boardColSize) {
-    // optimal solution , lets dive deep
-    
-    int rows[9][9]={0}; //rows[5][0] means whether number 1('0'+1) in row 5 has appeared.
-	int cols[9][9]={0}; //cols[3][8] means whether number 9('8'+1) in col 3 has appeared.
-	int blocks[3][3][9]={0};//blocks[0][2][5] means whether number '6' in block 0,2 (row 0~2,col 6~8) has appeared.
-	for(int r=0;r<9;r++)    //traverse board r,c
-		for(int c=0;c<9;c++)
-			if(board[r][c]!='.'){   //skip all number '.'
-				int number=board[r][c]-'1'; //calculate the number's index(board's number minus 1)
-				if(rows[r][number]++) return 0; //if the number has already appeared once, return false.
-				if(cols[c][number]++) return 0;
-				if(blocks[r/3][c/3][number]++) return 0;
-			}
-	return 1;
-}
+in block[][][] <- this third index is used to hash all the numbers from 00 sub block, if it exists then we can return false.
+
+*/
+public:
+    bool isValidSudoku(vector<vector<char>>& a) {
+        int row_check[9][9] = {0};
+        int col_check[9][9] = {0};
+        int block[9][9][9] = {0};
+
+        for(int row = 0 ; row < 9; row ++){
+            for(int col = 0; col < 9; col ++){
+                if(a[row][col]=='.'){
+                    continue;
+                }
+                int num = a[row][col] - '1';
+                if(row_check[row][num]++ || col_check[col][num]++ || block[row/3][col/3][num]++){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
