@@ -19,6 +19,8 @@ public:
 class Solution {
 // attempt 1 : idea was to use bfs and connect each nodes in a loop.
 // only first node is taken , idk why the other nodes arent linked.
+
+//[ UPDATE! : it does work that !node1->left was the damn problem. ]
 public:
     Node* connect(Node* root) {
         if(root==NULL){
