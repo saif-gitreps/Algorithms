@@ -41,3 +41,28 @@ int frogJump(int n, vector<int> &a)
     }
     return dp[n-1];
 }
+
+//==================================================================
+#include <bits/stdc++.h> 
+
+// Tc-> O(n) , SC - > O(1) , the prev and curr method.
+
+int frogJump(int n, vector<int> &a)
+{
+    vector<int> dp(n+1,-1);
+    
+    int prev = 0;
+    int curr = 0;
+
+    for(int i = 1 ;i < n ; i ++){
+        int step1 = curr + abs(a[i] - a[i-1]);
+        int step2 = 1000005;
+        if(i > 1){
+            step2 = prev + abs(a[i] - a[i-2]); 
+        } 
+        int ans = min(step1,step2);
+        prev = curr;
+        curr = ans;
+    }
+    return curr;
+}
