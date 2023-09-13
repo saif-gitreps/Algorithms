@@ -1,5 +1,5 @@
 #include <bits/stdc++.h> 
-// top down approach. TC-> O(n) , SC -> O(n) [for dp array].
+// top down approach. TC-> O(n) , SC -> O(n) [for dp array] + O(n) recursion stack.
 int kev(int n,vector<int> &a,vector<int> &dp){
     if(n==0){
         return 0;
@@ -20,4 +20,24 @@ int frogJump(int n, vector<int> &heights)
 {
     vector<int> dp(n+1,-1);
     return kev(n-1,heights,dp);
+}
+
+//===============================================================
+
+#include <bits/stdc++.h> 
+// tabular method , kind of similar approach , tc-> O(n) . sc-> O(n).
+int frogJump(int n, vector<int> &a)
+{
+    vector<int> dp(n+1,-1);
+
+    dp[0] = 0;
+    for(int i = 1 ;i < n ; i ++){
+        int step1 = dp[i-1] + abs(a[i] - a[i-1]);
+        int step2 = 1000005;
+        if(i > 1){
+            step2 = dp[i-2] + abs(a[i] - a[i-2]); 
+        } 
+        dp[i] = min(step1,step2);
+    }
+    return dp[n-1];
 }
