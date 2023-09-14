@@ -1,4 +1,8 @@
 #include <bits/stdc++.h> 
+
+link -> https://www.codingninjas.com/studio/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+
+
 // top down approach. TC-> O(n) , SC -> O(n) [for dp array] + O(n) recursion stack.
 int kev(int n,vector<int> &a,vector<int> &dp){
     if(n==0){
