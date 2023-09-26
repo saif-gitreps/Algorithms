@@ -59,3 +59,33 @@ public:
         return min(dp2[cost.size()-2],dp[cost.size()-1]);
     }
 };
+
+
+class Solution {
+// minor mistake, did use the dp array to avoid calculated sub problem.
+public:
+    int kev(int n,vector<int> a,vector<int> &dp){
+        if(n == 0){
+            dp[n] = a[n];
+            return dp[n];
+        }
+        if( n < 0){
+            return 0;
+        }
+        if(dp[n] != -1){
+            return dp[n];
+        }
+        int fs = kev(n-1,a,dp) + a[n];
+        int ss = kev(n-2,a,dp) + a[n];
+        dp[n] = min(fs,ss);
+        return dp[n];
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        vector<int> dp(cost.size(),-1);
+        vector<int> dp2(cost.size(),-1);
+
+        kev(cost.size()-2,cost,dp2);
+        kev(cost.size()-1,cost,dp);
+        return min(dp2[cost.size()-2],dp[cost.size()-1]);
+    }
+};
