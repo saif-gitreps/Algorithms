@@ -58,3 +58,37 @@ public:
         return dp[n-1];
     }
 };
+
+
+class Solution {
+// So the idea missing was that, we either ignore the first element, or we ignore the last element, then tag the max result you get from 
+// ignoring either of those indices. I copied and pasted house robber - I's space-optimized solution and made two function calls, a call without 
+// 0 index and another without the last index and returned the max from each result. 
+public:
+    int kev(int n , vector<int> a){
+        int prev = 0;
+        int curr = a[0];
+        for(int i = 1 ; i <= n; i++){
+            int pick = a[i] + prev;
+            int not_pick = curr;
+            prev = curr;
+            curr = max(pick , not_pick);
+        }
+        return curr;
+    }
+    int rob(vector<int>& nums) {
+        if(nums.size() == 1) {
+            return nums[0];
+        }
+        int temp1 = nums[nums.size()-1];
+        int temp2 = nums[0];
+
+        nums[ nums.size()-1 ] = 0;
+        int ans1 = kev(nums.size() -1 , nums);
+        nums[ nums.size()-1 ] = temp1;
+
+        nums[0] = 0;
+        int ans2 = kev(nums.size() -1 , nums);
+        return max(ans1,ans2);
+    }
+};
