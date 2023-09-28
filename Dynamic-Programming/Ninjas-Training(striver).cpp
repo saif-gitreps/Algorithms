@@ -51,6 +51,11 @@ int kev(int n, int last,vector<vector<int>> &a,vector<vector<int>> &dp){
             mx = max(point,mx);
         }
     }
+    // why last , because , i want to know what will be the max value that i can get if 
+    // i have chosen or passed this sub index. So the recursion finds it out for me.
+    // IN simple word , if my examples last choice was index 0 , what is the maximum value
+    // the recurstion will bring it for me if i had chosen that index . And once i get that ans
+    // i store it in my "last choice" index.
     return dp[n][last] = mx;
 }
 
