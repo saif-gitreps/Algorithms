@@ -63,3 +63,42 @@ int ninjaTraining(int n, vector<vector<int>> &points){
     vector<vector<int>> dp(n , vector<int>(4 , -1));
     return kev(n-1 , 3, points, dp);
 }
+
+
+//====================================================================================
+
+haha solved it on my own , idk if it was the right solution or no.
+    
+int ninjaTraining(int n, vector<vector<int>> &a){   
+    vector<vector<int>> dp(n ,vector<int> (4, -1));
+    for(int last = 0; last < 3 ; last ++){
+        int mx = 0;
+        for(int i = 0; i < 3; i++){
+            if(i != last){
+                mx = max(a[0][i] , mx);   
+            }
+        }
+        dp[0][last] = mx;
+    }
+    int final_mx = 0; 
+    for(int i = 1; i < n; i++){
+        for(int  last = 0; last < 3; last++){
+            int mx = 0;         
+            for(int k = 0; k < 3 ;k ++){
+                int pts;
+                if( k != last){
+                pts = a[i][k] + dp[i-1][k];
+                mx = max(pts,mx);
+                }   
+            }
+            dp[i][last] = mx;
+            // typically the last answer or the final best optimal solution will be stored in the last index.
+            // so i chose the best possible result from any of the last index results.
+            if(i == n-1){
+                final_mx = max(dp[i][last],final_mx);
+            }
+        }
+    }
+    return final_mx;
+}
+    
