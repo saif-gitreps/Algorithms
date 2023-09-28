@@ -28,7 +28,7 @@ int ninjaTraining(int n, vector<vector<int>> &points)
 }
 
 //========================================================================
-using dp and memoeization 
+//using dp and memoeization 
 
 int kev(int n, int last,vector<vector<int>> &a,vector<vector<int>> &dp){
     if( dp[n][last] != -1){
@@ -66,9 +66,8 @@ int ninjaTraining(int n, vector<vector<int>> &points){
 
 
 //====================================================================================
+//haha solved it on my own , idk if it was the right solution or no.
 
-haha solved it on my own , idk if it was the right solution or no.
-    
 int ninjaTraining(int n, vector<vector<int>> &a){   
     vector<vector<int>> dp(n ,vector<int> (4, -1));
     for(int last = 0; last < 3 ; last ++){
@@ -101,4 +100,60 @@ int ninjaTraining(int n, vector<vector<int>> &a){
     }
     return final_mx;
 }
+
+
+//==============================================================================
+//striver's code:
+
+int ninjaTraining(int n, vector<vector<int>> &a){   
+    vector<vector<int>> dp(n ,vector<int> (4, -1));
+    dp[0][0] = max(a[0][1] ,a[0][2]);
+    dp[0][1] = max(a[0][0] ,a[0][2]);
+    dp[0][2] = max(a[0][0] ,a[0][1]);
+    dp[0][3] = max(a[0][0] ,max(a[0][1],a[0][2]));
+    for(int i = 1; i < n; i++){
+      for(int  last = 0; last < 4; last++){         
+         for(int k = 0; k < 3 ;k ++){
+            int pts;
+            if( k != last){
+               pts = a[i][k] + dp[i-1][k];
+               dp[i][last] = max(pts ,dp[i][last]);
+            }   
+         }
+      }
+   }
+//so here the third index helps us find the maximum optimal solution from each points. and we basically store it in the third index. 
+   return dp[n-1][3];
+}
+
+//=====================================================================================
+//such pretty code.
+//space complexity is O(4) which is as good as O(1) anyway.
+//So the pattern is that , once you are able to find the top - down approach ,  u can easily convert it into a bottom - up approach
+//From there its easy to just implement space optimization.
+
+int ninjaTraining(int n, vector<vector<int>> &a){   
+   vector<int> prev(4,0);
+   prev[0] = max(a[0][1],a[0][2]);
+   prev[1] = max(a[0][0],a[0][2]);
+   prev[2] = max(a[0][0],a[0][1]);
+   prev[3] = max(a[0][0] ,max(a[0][1],a[0][2]));
+
+   int final_mx = 0; 
+   for(int i = 1; i < n; i++){
+      vector<int> curr(4 , 0);          
+      for(int  last = 0; last < 4; last++){
+         for(int k = 0; k < 3 ;k ++){
+            int pts;
+            if( k != last){
+               pts = a[i][k] + prev[k];
+               curr[last] = max(pts ,curr[last]);
+            }   
+         }
+      }
+      prev = curr;
+   }
+   return prev[3];
+}
+
     
