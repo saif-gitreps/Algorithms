@@ -26,3 +26,35 @@ int ninjaTraining(int n, vector<vector<int>> &points)
 {
     return kev(n-1 , 3, points);
 }
+
+//========================================================================
+using dp and memoeization 
+
+int kev(int n, int last,vector<vector<int>> &a,vector<vector<int>> &dp){
+    if( dp[n][last] != -1){
+        return dp[n][last];
+    }
+    if(n == 0){
+        int mx = 0;
+        for(int i = 0; i < 3; i++){
+            if( i != last){
+                mx = max(a[0][i],mx);
+            }
+        }
+        return dp[n][last] = mx;
+        
+    }
+    int mx = 0;
+    for(int i = 0 ; i < 3 ; i ++){
+        if (i != last) {
+            int point = a[n][i] + kev(n - 1, i, a ,dp);
+            mx = max(point,mx);
+        }
+    }
+    return dp[n][last] = mx;
+}
+
+int ninjaTraining(int n, vector<vector<int>> &points){   
+    vector<vector<int>> dp(n , vector<int>(4 , -1));
+    return kev(n-1 , 3, points, dp);
+}
