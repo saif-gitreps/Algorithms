@@ -68,3 +68,32 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+// logic wise , this seem correct but idk why i am gettng memory access errors.
+public:
+    int kev(int m,int n,vector<vector<int>> &dp){
+        if(m == 1 && n == 1){
+            return 1;
+        }
+        if(dp[m][n] != -1){
+            return dp[m][n];
+        }
+        int up = 0;
+        if( m > 1){
+            up = kev(m - 1, n, dp);
+        }
+        int left = 0;
+        if( n > 1){
+            left = kev(m, n - 1, dp);
+        }
+        dp[m][n] = left + up;
+        return dp[m][n];
+    }
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        kev(m,n,dp);
+        return dp[m][n];
+    }
+};
