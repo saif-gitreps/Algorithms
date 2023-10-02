@@ -97,3 +97,38 @@ public:
         return dp[m][n];
     }
 };
+
+
+class Solution {
+// YAY this dp worked. hehe , lets study the optimal solutions.
+// i had to declare n+1 and m+1 arrays idk why.
+public:
+    int kev(int m,int n,vector<vector<int>> &dp){
+        if(m == 1 && n == 1){
+            dp[m][n] = 1;
+            return 1;
+        }
+        if(dp[m][n] != -1){
+            return dp[m][n];
+        }
+        int up = 0;
+        if( m > 1){
+            m--;
+            up = kev(m, n, dp);
+            m++;
+        }
+        int left = 0;
+        if( n > 1){
+            n--;
+            left = kev(m, n, dp);
+            n++;
+        }
+        dp[m][n] = left + up;
+        return dp[m][n];
+    }
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
+        kev(m,n,dp);
+        return dp[m][n];
+    }
+};
