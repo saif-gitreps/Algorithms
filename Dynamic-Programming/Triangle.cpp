@@ -26,3 +26,29 @@ public:
         return kev(0, 0, triangle, dp);
     }
 };
+
+
+class Solution {
+// so my missing concept was that we could either go down or one diagonal. 
+// and other missing step was we had to write n-1 and j condition which i didnt.
+public:
+    int kev(int i,int j, vector<vector<int>> &a, vector<vector<int>> &dp){
+        if(i == a.size() -1 ){
+            return dp[i][j] = a[i][j];
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        int fs = INT_MAX;
+        int ss = INT_MAX;
+        fs = a[i][j] + kev(i+1, j, a, dp);
+        ss = a[i][j] + kev(i+1, j+1, a, dp);
+        return dp[i][j] = min(fs, ss);
+    }
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+        int m = triangle[n - 1].size();
+        vector<vector<int>> dp(n , vector<int> (m, -1));
+        return kev(0, 0, triangle, dp);
+    }
+};
