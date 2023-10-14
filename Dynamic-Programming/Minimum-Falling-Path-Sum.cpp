@@ -31,3 +31,37 @@ public:
         return ans;
     }
 };
+
+class Solution {
+public:
+// tabulation works as well. took me a while to get over my mistakes.
+    int minFallingPathSum(vector<vector<int>>& a) {
+        int m = a.size();
+        int n = a[0].size();
+        vector<vector<int>> dp(m ,vector<int> (n, INT_MAX));
+        int ans = INT_MAX;
+        for(int i = 0 ; i < m; i++){
+            for(int j = 0 ; j < n; j++){
+                if(i == 0){
+                    dp[i][j] = a[i][j];
+                }
+                else{
+                    int left = INT_MAX, mid = INT_MAX, right = INT_MAX;
+                    if(j > 0){
+                        left = dp[i-1][j-1]; 
+                    }
+                    if(j + 1 < n ){
+                        right = dp[i-1][j+1];
+                    }
+                    mid = dp[i-1][j];
+                    dp[i][j] = a[i][j] + min(mid, min(left ,right));
+                }
+            }
+        }
+        ans = dp[m-1][0];
+        for(int j = 1; j < n; j++){
+            ans = min(dp[m-1][j], ans);
+        }
+        return ans;
+    }
+};
