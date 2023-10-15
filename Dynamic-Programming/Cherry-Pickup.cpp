@@ -128,3 +128,43 @@ private:
     }
 
 };
+
+
+class Solution {
+// my attempt. So in MAX function , the recursion call is not made simultaneously.
+// When first left is called , when left is exhausted , right is called.
+// Also apparently i got TLE if passed a without call by reference. IDK WHAT DIFFERENCE DOES IT MAKE.
+public:
+    int kev(int n, int row1 , int col1 , int row2 , int col2 , vector<vector<int>> &a,  vector<vector<vector<vector<int>>>> &dp){
+        if(row1 >= n || col1 >= n || row2 >= n || col2 >= n || a[row1][col1] ==-1 || a[row2][col2] ==-1){
+            return INT_MIN;
+        }
+        if(row1 == n-1 && col1 == n-1){
+            return a[row1][col1];
+        }
+        if(row2 == n-1 && col2 == n-1){
+            return a[row2][col2];
+        }
+        if(dp[row1][col1][row2][col2] != -1){
+            return dp[row1][col1][row2][col2];
+        }
+        int ans;
+        if(row1 == row2 && col1 == col2){
+            ans = a[row1][col1];
+        }
+        else{
+            ans = a[row1][col1] + a[row2][col2];
+        }
+        ans += max(
+            max(kev(n, row1 + 1, col1, row2 + 1, col2, a, dp), kev(n, row1 + 1, col1, row2, col2 + 1, a, dp)),
+            max(kev(n, row1, col1 + 1, row2 + 1, col2, a, dp), kev(n, row1, col1 + 1, row2, col2 + 1, a, dp))
+        );
+        dp[row1][col1][row2][col2] = ans;
+        return ans;
+    }
+    int cherryPickup(vector<vector<int>>& a) {
+        int n = a.size();
+        vector<vector<vector<vector<int>>>> dp(n, vector<vector<vector<int>>> (n,vector<vector<int>> (n, vector<int> (n, -1))));
+        return max(0,kev(n, 0, 0, 0, 0, a, dp));
+    }
+};
