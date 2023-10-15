@@ -80,3 +80,51 @@ public:
         return dp[0][0];
     }
 };
+
+
+class Solution {
+// ultimate solution .
+public:
+    int cherryPickup(std::vector<std::vector<int>>& grid) {
+        int N = grid.size();
+        vector<vector<vector<vector<int>>>> dp(N, vector<vector<vector<int>>>(N, vector<vector<int>>(N,vector<int>(N, -1))));
+        return std::max(0, cherryPickup(grid, N, 0, 0, 0, 0, dp));
+    }
+
+private:
+    int cherryPickup(vector<vector<int>>& grid, int n, int r1, int c1, int r2, int c2, vector<vector<vector<vector<int>>>>& dp) {
+        if (r1 >= n || c1 >= n || r2 >= n || c2 >= n || grid[r1][c1] == -1 || grid[r2][c2] == -1) {
+            return INT_MIN;
+        }
+
+        if (r1 == n - 1 && c1 == n - 1) {
+            return grid[r1][c1];
+        }
+
+        if (dp[r1][c1][r2][c2] != -1) {
+            return dp[r1][c1][r2][c2];
+        }
+
+        if (r2 == n - 1 && c2 == n - 1) {
+            return grid[r2][c2];
+        }
+
+        int cherries;
+
+        if (r1 == r2 && c1 == c2) {
+            cherries = grid[r1][c1];
+        } else {
+            cherries = grid[r1][c1] + grid[r2][c2];
+        }
+
+        cherries += max(
+            max(cherryPickup(grid, n, r1 + 1, c1, r2 + 1, c2, dp), cherryPickup(grid, n, r1 + 1, c1, r2, c2 + 1, dp)),
+            max(cherryPickup(grid, n, r1, c1 + 1, r2 + 1, c2, dp), cherryPickup(grid, n, r1, c1 + 1, r2, c2 + 1, dp))
+        );
+
+        dp[r1][c1][r2][c2] = cherries;
+
+        return cherries;
+    }
+
+};
