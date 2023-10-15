@@ -134,6 +134,10 @@ class Solution {
 // my attempt. So in MAX function , the recursion call is not made simultaneously.
 // When first left is called , when left is exhausted , right is called.
 // Also apparently i got TLE if passed a without call by reference. IDK WHAT DIFFERENCE DOES IT MAKE.
+// we can also write the 4 recursion calls as 
+// first person goes down , first person goes right
+// second person goes down , second person goes left
+// then calculate max of whatever they bring to us.
 public:
     int kev(int n, int row1 , int col1 , int row2 , int col2 , vector<vector<int>> &a,  vector<vector<vector<vector<int>>>> &dp){
         if(row1 >= n || col1 >= n || row2 >= n || col2 >= n || a[row1][col1] ==-1 || a[row2][col2] ==-1){
