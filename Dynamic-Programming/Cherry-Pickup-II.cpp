@@ -1,4 +1,6 @@
 class Solution {
+// understood that i had to check addition c1 + c2 on a level n , if those c1 and c2 are equal the we take only one.
+// and tell recursion to do rest for us.
 public:
     int kev(int n, int c1, int c2, vector<vector<int>> &a, vector<vector<vector<int>>> &dp){
         if(c1<0 || c2<0 || c1>=a[0].size() || c2>=a[0].size() || n == a.size()){
@@ -40,6 +42,7 @@ public:
 
 
 class Solution {
+// tabulation ,  it is insanely looped . which is ridiculous.
 public:
     int kev(int n, int c1, int c2, vector<vector<int>> &a, vector<vector<vector<int>>> &dp){
         if(c1<0 || c2<0 || c1>=a[0].size() || c2>=a[0].size() || n == a.size()){
