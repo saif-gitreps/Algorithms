@@ -50,3 +50,21 @@ public:
         return a;
     }
 };
+//========================================================================
+
+//SO this is a solution of another dude , he just used the built in function but added his own call back function.
+//Or a comparator is what we call
+
+int k1;
+bool comp(vector<int>&a,vector<int>&b)
+{
+ return a[k1]>b[k1];  
+}
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        k1=k;    
+        sort(score.begin(),score.end(),comp);
+        return score;
+    }
+};
