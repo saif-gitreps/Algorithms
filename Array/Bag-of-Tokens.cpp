@@ -53,3 +53,32 @@ public:
         return kev(n-1, power, a, dp);
     }
 };
+
+
+class Solution {
+//so my problem is i overcomplicate things and i cant seem to focus on the simpler greedy solution.
+public:
+    int bagOfTokensScore(vector<int>& a, int power) {
+        sort(a.begin(),a.end());
+        int score = 0;
+        int mx = 0;
+        int left = 0; int right = a.size() - 1;
+        while(left <= right){
+            if(power >= a[left]){
+                score++;
+                power -= a[left];
+                mx = max(score,mx);
+                left++;
+            }
+            else if(score > 0 ){
+                score--;
+                power += a[right];
+                right--;
+            }
+            else{
+                break;
+            }
+        }
+        return mx; 
+    }
+};
