@@ -26,3 +26,30 @@ public:
         return kev(n-1, power, a, dp);
     }
 };
+
+
+class Solution {
+// this recursion worked better than my dp solution. 50cases 
+public:
+    int kev(int n, int power,vector<int> &a, vector<int> &dp){
+        if(n < 0){
+            return 0;
+        }
+        int take_token = 0;
+        int ignore = 0;
+        int consume = 0;
+        if(power >= a[n]){
+            consume = kev(n-1, power - a[n], a, dp) + 1;
+        }
+        if(power < a[n]){
+            take_token = kev(n-1, power + a[n], a, dp) - 1;
+        }
+        ignore = kev(n-1, power , a, dp);
+        return max(ignore ,max(take_token, consume));
+    }
+    int bagOfTokensScore(vector<int>& a, int power) {
+        int n = a.size();
+        vector<int> dp(n, -1);
+        return kev(n-1, power, a, dp);
+    }
+};
