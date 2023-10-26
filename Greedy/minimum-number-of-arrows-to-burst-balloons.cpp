@@ -40,3 +40,23 @@ public:
         return count;    
     }
 };
+
+class Solution {
+// my intuition was also right , i guess some dots just dont click the way you wanted to.
+public:
+    static bool comparator(vector<int> &a, vector<int> &b){
+        return a[1] < b[1];
+    }
+    int findMinArrowShots(vector<vector<int>>& a) {
+        sort(a.begin(), a.end(), comparator);
+        int count = 1;
+        int start_point = a[0][1];
+        for(int i = 1; i < a.size(); i ++){
+            if(start_point < a[i][0]){
+                count++;
+                start_point = a[i][1];
+            }
+        }
+        return count;    
+    }
+};
