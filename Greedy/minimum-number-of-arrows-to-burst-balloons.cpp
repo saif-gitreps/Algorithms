@@ -20,3 +20,23 @@ public:
         return curr_count;    
     }
 };
+
+class Solution {
+// another solution, works till 24/50. 
+public:
+    int findMinArrowShots(vector<vector<int>>& a) {
+        sort(a.begin(), a.end());
+        int count = a.size();
+        for(int i = 1; i < a.size(); i ++){
+            if(a[i-1][1] >= a[i][0]){
+               int start_point = a[i-1][1];
+               while(i < a.size() && start_point >= a[i][0]){
+                    i++;
+                    count--;
+               }
+            //    i++;
+            }
+        }
+        return count;    
+    }
+};
