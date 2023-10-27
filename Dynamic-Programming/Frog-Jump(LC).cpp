@@ -35,6 +35,8 @@ public:
 
 class Solution {
 // 14/50 now , i think this will go on from test case to test case.
+// UPDATE , i missed sending a Z , sent 2 Ys.
+// successfully reached the TLE case, now time to memoize.
 public:
     bool kev(int i,int k, vector<int> a){
         if(i >= a.size()){
@@ -59,7 +61,7 @@ public:
                 y = kev(j , k + 1 , a);
             }
             if((k-1) + a[i] == a[j]){
-                y = kev(j , (k - 1) , a);
+                z = kev(j , (k - 1) , a);
             }
         }
         return (x || y || z);
