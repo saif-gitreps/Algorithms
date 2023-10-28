@@ -71,6 +71,40 @@ public:
     }
 };
 
+
+class FoodRatings {
+// this solution worked, learned so many things abouts c++ libarries.
+public:
+    unordered_map<string, set<pair<int,string>>> cuis_rating;
+    unordered_map<string,string> food_cuis;
+    unordered_map<string,int> food_rating;
+    FoodRatings(vector<string>& foods, vector<string>& c, vector<int>& rate) {
+        for(int i = 0; i < c.size(); i++){
+            // here -rate means higher rating will come first
+            // And we really dont have to worry about strings,
+            // strins will be stored lexographically by default.
+            cuis_rating[c[i]].insert( { -rate[i], foods[i] } );
+            food_cuis[foods[i]] = c[i];
+            food_rating[foods[i]] = rate[i];
+        }
+    }
+    void changeRating(string food, int newRating) {
+        auto &cuisine = food_cuis.find(food)->second;
+        cuis_rating[cuisine].erase({-food_rating[food], food});
+        cuis_rating[cuisine].insert({-newRating, food});
+        food_rating[food] = newRating;
+    }
+    string highestRated(string cuisine) {
+        return begin(cuis_rating[cuisine])->second;
+    }
+};
+
+/**
+ * Your FoodRatings object will be instantiated and called as such:
+ * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
+ * obj->changeRating(food,newRating);
+ * string param_2 = obj->highestRated(cuisine);
+ */
 /**
  * Your FoodRatings object will be instantiated and called as such:
  * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
