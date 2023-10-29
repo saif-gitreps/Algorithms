@@ -26,13 +26,6 @@ public:
     }
 };
 
-/**
- * Your FoodRatings object will be instantiated and called as such:
- * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
- * obj->changeRating(food,newRating);
- * string param_2 = obj->highestRated(cuisine);
- */
-
 
 class FoodRatings {
 //2nd attempt same result
@@ -99,15 +92,43 @@ public:
     }
 };
 
-/**
- * Your FoodRatings object will be instantiated and called as such:
- * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
- * obj->changeRating(food,newRating);
- * string param_2 = obj->highestRated(cuisine);
- */
-/**
- * Your FoodRatings object will be instantiated and called as such:
- * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
- * obj->changeRating(food,newRating);
- * string param_2 = obj->highestRated(cuisine);
- */
+
+// here there is a logical use of a comparator, if a==b then we sort using the second value.
+struct comp {
+    bool operator()(pair<int, string>& a, pair<int, string>& b) {
+        if (a.first == b.first) return a.second > b.second;
+        return a.first < b.first;
+    }
+};
+
+class FoodRatings {
+public:
+
+    unordered_map<string, priority_queue<pair<int, string>, vector<pair<int, string>>, comp>> cuisinemap;
+    unordered_map<string, string> menu;
+    unordered_map<string, int> ratemap;
+
+    FoodRatings(vector<string>& foods, vector<string>& c, vector<int>& r) {
+        for (int i = 0; i < foods.size(); i++) {
+            cuisinemap[c[i]].push({r[i], foods[i]});
+            menu[foods[i]] = c[i];
+            ratemap[foods[i]] = r[i];
+        }
+    }
+
+    void changeRating(string food, int newRating) {
+        ratemap[food] = newRating;
+        cuisinemap[menu[food]].push({newRating, food});
+    }
+
+    string highestRated(string cuisine) {
+        auto top_food = cuisinemap[cuisine].top();
+
+        while (ratemap[top_food.second] != top_food.first) {
+            cuisinemap[cuisine].pop();
+            top_food = cuisinemap[cuisine].top();
+        }
+
+        return top_food.second;
+    }
+};
