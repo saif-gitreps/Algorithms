@@ -90,3 +90,61 @@ bool subsetSumToK(int n, int k, vector<int> &nums) {
     }
     return dp[n-1][k];
 }
+
+
+#include <bits/stdc++.h> 
+//space optimized , let me check if it actually optimizes space or no.
+bool subsetSumToK(int n, int k, vector<int> &nums) {
+    vector<vector<int>> dp(n, vector<int> (k+1, false));
+    vector<int> prev(k+1, false);
+    if (nums[0] <= k) {
+        prev[nums[0]] = true;
+    }
+    for(int i = 0; i < n; i++){
+       prev[0] = true;
+    }
+    for(int i = 1; i < n; i++){
+       vector<int> curr(k+1 , false);
+       curr[0] = true;
+       for (int j = 1; j <= k; j++) {
+         int pick = false;
+         int not_pick = false;
+         if(j >= nums[i]){
+            pick = prev[j - nums[i]];
+         }
+         not_pick = prev[j];
+         curr[j] = pick || not_pick;
+       }
+       prev = curr;
+    }
+    return prev[k];
+}
+
+Explanation :
+
+Algorithm 1:
+
+Uses a 2D DP array dp of size n x (k+1). This array is O(n * k) in terms of space.
+
+Uses two 1D arrays prev and curr, each of size k+1. Each of these arrays is O(k) in terms of space.
+
+Overall space complexity for Algorithm 1: O(n * k) + O(k) + O(k), where O(n * k) is the dominant term.
+
+Algorithm 2:
+
+Uses a 2D DP array dp of size n x (k+1). This array is O(n * k) in terms of space.
+Overall space complexity for Algorithm 2: O(n * k).
+
+Upon reevaluation, both algorithms have a space complexity of O(n * k) in terms of the space required for the DP array.
+The additional space used by prev and curr arrays in Algorithm 1 is also O(k),
+but it does not significantly affect the overall space complexity when compared to the O(n * k) space used by the DP array.
+
+In terms of space efficiency, both algorithms are comparable as they both use O(n * k) space for their dynamic programming tables. 
+The second algorithm is slightly more efficient in terms of memory management since,
+it avoids the need for maintaining the separate prev and curr arrays, 
+   but the overall space complexity is still O(n * k) for both algorithms.
+
+
+
+
+
