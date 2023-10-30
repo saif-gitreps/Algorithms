@@ -29,3 +29,26 @@ public:
         return kev(n-1, 0, nums, k, dp);
     }
 };
+
+
+class Solution {
+/*
+    understood what it meant, we are storing all the prefix sums in a hashmap.
+    and at each iteration we take the prefixsum , then at that iteration we -= k.
+    When we -= k , we check if that resultant leads to an existing prefix in the map (if it doesn't then its 0 by default).
+    Then we store or increment the prefix in hashmap.
+*/
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int prefix = 0;
+        unordered_map<int,int> mp;
+        mp[0] = 1;
+        int count = 0;
+        for(int i = 0 ; i < nums.size() ; i++){
+            prefix += nums[i];
+            count += mp[prefix - k];
+            mp[prefix] += 1;
+        }
+        return count;        
+    }
+};
