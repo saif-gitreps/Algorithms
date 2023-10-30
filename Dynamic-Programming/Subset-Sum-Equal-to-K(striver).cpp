@@ -60,3 +60,33 @@ bool subsetSumToK(int n, int k, vector<int> &nums) {
 }
 
 
+bool subsetSumToK(int n, int k, vector<int> &nums) {
+    vector<vector<int>> dp(n, vector<int> (k+1, false));
+    /*
+    For writing tablution
+    step1: declare the same dp array.
+    step2: figure out the base case , here it says that,
+    no matter what the index, if k == 0 then we set it to true,
+    so what you're going to do is loop from 1-N and set all true for k==0.
+    Here k == a[n] means that we can k - a[n] == 0.
+    it means if choosing a[n] will result your k to be 0 or no.
+    */
+    if (nums[0] <= k) {
+        dp[0][nums[0]] = true;
+    }
+    for(int i = 0; i < n; i++){
+       dp[i][0] = true;
+    }
+    for(int i = 1; i < n; i++){
+       for (int j = 1; j <= k; j++) {
+         int pick = false;
+         int not_pick = false;
+         if(j >= nums[i]){
+            pick = dp[i - 1][j - nums[i]];
+         }
+         not_pick = dp[i - 1][j];
+         dp[i][j] = pick || not_pick;
+       }
+    }
+    return dp[n-1][k];
+}
