@@ -25,3 +25,22 @@ public:
         return wall.size() - mx;    
     }
 };
+
+
+class Solution {
+// optimized.
+public:
+    int leastBricks(vector<vector<int>>& wall) {
+        unordered_map<int,int> mp;
+        int mx = 0;
+        for(int i = 0; i < wall.size(); i++){
+            int gap = 0;
+            for(int j = 0; j < wall[i].size()-1; j++){
+                gap += wall[i][j];
+                mp[gap]++;
+                mx = max(mp[gap], mx);
+            }
+        }
+        return wall.size() - mx;    
+    }
+};
