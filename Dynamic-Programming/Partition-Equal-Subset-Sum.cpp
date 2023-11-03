@@ -47,22 +47,32 @@ public:
 };
 
 class Solution {
-// Again TLE after 58 cases.
+// this worked for 68 and then TLE, this was the best attempt at bottom up.
+// The part and trick i missed waas that, we only need to find the half of the sum.
+// What i mean by that i dont need to run two variable and equat them at some point of time.
+// just take the half and run a loop to find that half, edge case is if there is odd then theres no way
+// to evenly make a partition.
 public:
-    int kev(int n, int sum, int total, vector<int> a, vector<vector<int>> &dp){
+    int kev(int n, int sum, vector<int> a, vector<vector<int>> &dp){
+        if(sum < 0 ){
+            return 0;
+        }
         if(n == 0){
-            if(sum + a[n] == total || sum == total){
-                return 1;
+            if(sum - a[n] == 0 || sum == 0){
+                return dp[n][sum] = 1;
             }
             return 0;
+        }
+        if(sum == 0){
+            return dp[n][sum] = 1;
         }
         if(dp[n][sum] != -1){
             return dp[n][sum];
         }
         int pick = 0;
         int not_pick = 0;
-        pick = kev(n-1, sum+a[n], total, a, dp);
-        not_pick = kev(n-1, sum, total, a, dp);
+        pick = kev(n-1, sum-a[n], a, dp);
+        not_pick = kev(n-1, sum, a, dp);
         return dp[n][sum] = pick || not_pick;
     }
     bool canPartition(vector<int>& nums) {
@@ -75,6 +85,43 @@ public:
             return false;
         }
         vector<vector<int>> dp(n, vector<int> (total, -1));   
-        return kev(n-1, 0, total/2, nums, dp);
+        return kev(n-1, total/2, nums, dp);
     }
 };
+
+class Solution {
+// top-down is so hard ffs.
+public:
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int total = 0;
+        for(auto x : nums){
+            total += x;
+        }
+        if(total % 2 != 0){
+            return false;
+        }
+        vector<vector<int>> dp(n, vector<int> ((total/2) + 1, 0));   
+        
+        for(int i = 0; i < n; i++){
+            //from any index if i get 0 then it is true , this loop is for that.
+            dp[i][0] = true;
+        }
+        if(nums[0] <= (total/2)){
+            dp[0][nums[0]] = true;
+        }
+        for(int i = 1; i < n; i++){
+            for(int j = total/2; j >= 1; j--){
+                int pick = 0;
+                int not_pick = 0;
+                if(j >= nums[i]){
+                    pick = dp[i-1][j-nums[i]];
+                }
+                not_pick = dp[i-1][j];
+                dp[i][j] = pick || not_pick;
+            }            
+        }
+        return dp[n-1][(total/2)];
+    }
+};
+
