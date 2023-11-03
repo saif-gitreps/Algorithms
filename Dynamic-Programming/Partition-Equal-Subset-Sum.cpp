@@ -45,3 +45,36 @@ public:
         return kev(n-1, 0, 0, nums, dp);
     }
 };
+
+class Solution {
+// Again TLE after 58 cases.
+public:
+    int kev(int n, int sum, int total, vector<int> a, vector<vector<int>> &dp){
+        if(n == 0){
+            if(sum + a[n] == total || sum == total){
+                return 1;
+            }
+            return 0;
+        }
+        if(dp[n][sum] != -1){
+            return dp[n][sum];
+        }
+        int pick = 0;
+        int not_pick = 0;
+        pick = kev(n-1, sum+a[n], total, a, dp);
+        not_pick = kev(n-1, sum, total, a, dp);
+        return dp[n][sum] = pick || not_pick;
+    }
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int total = 0;
+        for(auto x : nums){
+            total += x;
+        }
+        if(total % 2 != 0){
+            return false;
+        }
+        vector<vector<int>> dp(n, vector<int> (total, -1));   
+        return kev(n-1, 0, total/2, nums, dp);
+    }
+};
