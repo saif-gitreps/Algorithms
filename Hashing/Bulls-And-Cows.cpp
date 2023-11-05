@@ -45,6 +45,10 @@ public:
                 if(mp[s[i]] < 0){
                     cows++;
                 }
+                // if (mp[g[i]] > 0) checks whether the character g[i] from the guess string g has 
+                // already been encountered in the secret string s and hasn't been fully matched 
+                // (i.e., there are more occurrences of the character in s than in g).
+                // When this condition is met, it should increment the cows count.
                 if(mp[g[i]] > 0){
                     cows++;
                 }
