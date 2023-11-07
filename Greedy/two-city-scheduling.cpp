@@ -31,3 +31,28 @@ public:
         return kev(n -1 , n/2, n/2, a, dp);
     }
 };
+
+bool compare(vector<int> f, vector<int> s){
+    // we are sorting in terms of the ones that will give us more profit
+    // 200 - 30 = 170 , means we will save 170 if we take A.
+    // will be sorted DESC of relative cost of B - A.
+    return f[1] - f[0] > s[1] - s[0];
+}
+class Solution {
+// one of the sol.
+public:
+    int twoCitySchedCost(vector<vector<int>>& a) {
+        int mn = 0;
+        sort(a.begin(),a.end(),compare);
+
+        // first loop , it will be economical to take A.
+        for(int i = 0; i < a.size()/2; i++){
+            mn += a[i][0];
+        }
+
+        for(int i = a.size()/2; i < a.size(); i++){
+            mn += a[i][1];
+        }
+        return mn;
+    }   
+};
