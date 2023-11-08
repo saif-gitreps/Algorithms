@@ -56,3 +56,30 @@ public:
         return mn;
     }   
 };
+
+class Solution {
+// YESSS, the dp solution that actually worked, i thought dp was not possible. tho its O(N^2), here we didnt hash N.
+// And i had trouble with the base case as well.
+public:
+    int kev(int n, int c1,int c2,  vector<vector<int>> a,vector<vector<int>> &dp){
+        if(n < 0){
+            return 0;
+        }
+        if(dp[c1][c2] != -1){
+            return dp[c1][c2];
+        }
+        int first = INT_MAX,second = INT_MAX;
+        if(c1 > 0){
+            first = a[n][0] + kev(n-1, c1-1, c2, a, dp);
+        }
+        if(c2 > 0){
+            second = a[n][1] + kev(n-1, c1, c2-1, a, dp);
+        }
+        return dp[c1][c2] = min(first, second);
+    }
+    int twoCitySchedCost(vector<vector<int>>& a) {
+        int n = a.size();
+        vector<vector<int>> dp (51, vector<int> (51,-1));
+        return kev(n -1 , n/2 , n/2, a, dp);
+    }
+};
