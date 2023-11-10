@@ -79,3 +79,33 @@ public:
         return a[0];   
     }
 };
+
+class Solution {
+// 183/185 , AND TLE lmao.
+public:
+    int getWinner(vector<int>& a, int k) {
+        int win_count = 0;
+        int mx = 0;
+        for(int i = 0 ; i < a.size(); i++){
+            mx = max(mx, a[i]);
+        }
+        if(k > a.size()){
+            return mx;
+        }
+        while(win_count != k){  
+            if(a[0] > a[1]){
+                win_count++;
+                int num = a[1];
+                a.erase(a.begin()+1);
+                a.push_back(num);
+            }
+            else{
+                win_count = 1;
+                int num = a[0];
+                a.erase(a.begin()+0);
+                a.push_back(num);
+            }
+        }
+        return a[0];   
+    }
+};
