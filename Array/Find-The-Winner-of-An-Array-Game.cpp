@@ -109,3 +109,35 @@ public:
         return a[0];   
     }
 };
+
+class Solution {
+// BTW u dont need to do the max loop and return the max,
+// We actually ddint need to simulate it, we could have just ran a linear compare.
+// Now the linear compare says that if the winner wasnt found witin the loop , the max will be automatically Curr.
+public:
+    int getWinner(vector<int>& a, int k) {
+        int win_count = 0;
+        int mx = 0;
+        for(int i = 0 ; i < a.size(); i++){
+            mx = max(mx, a[i]);
+        }
+        if(k > a.size()){
+            return mx;
+        }
+        while(win_count != k){  
+            if(a[0] > a[1]){
+                win_count++;
+                int num = a[1];
+                a.erase(a.begin()+1);
+                a.push_back(num);
+            }
+            else{
+                win_count = 1;
+                int num = a[0];
+                a.erase(a.begin()+0);
+                a.push_back(num);
+            }
+        }
+        return a[0];   
+    }
+};
