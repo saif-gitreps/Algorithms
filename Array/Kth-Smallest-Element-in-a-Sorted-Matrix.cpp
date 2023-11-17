@@ -35,3 +35,45 @@ public:
         return pq.top();
     }
 };
+
+
+class Solution {
+// gives TLE at the last 2 edge cases.
+public:
+    int count(vector<vector<int>> &a, int k, int mid){
+        int cnt = 0;
+        int r = a.size();
+        int c = a[0].size();
+        // this method reduces TC.
+        int j = c - 1;
+        for(int i = 0 ; i < r; i++){
+            for(j ; j >= 0; j--){
+                if(a[i][j] <= mid){
+                    cnt += (j + 1);
+                    break;
+                }
+            }
+        }
+        return cnt;
+    }
+    int kthSmallest(vector<vector<int>>& a, int k) {
+        int r = a.size();
+        int c = a[0].size();
+
+        int left = a[0][0];
+        int right = a[r-1][c-1];
+
+        while(left < right){
+            int mid = (left + right)/2;
+            int cnt = count(a, k, mid);
+            if(cnt >= k){
+                right = mid;  
+            }
+            else{
+                left = mid + 1;
+            }
+        }
+        return left;
+
+    }
+};
