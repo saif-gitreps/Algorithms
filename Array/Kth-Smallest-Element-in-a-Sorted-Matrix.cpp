@@ -39,6 +39,7 @@ public:
 
 class Solution {
 // gives TLE at the last 2 edge cases.
+//[update : changed the mid formula , it worked]
 public:
     int count(vector<vector<int>> &a, int k, int mid){
         int cnt = 0;
@@ -64,7 +65,7 @@ public:
         int right = a[r-1][c-1];
 
         while(left < right){
-            int mid = (left + right)/2;
+            int mid = floor((right - left)/2 + left);
             int cnt = count(a, k, mid);
             if(cnt >= k){
                 right = mid;  
