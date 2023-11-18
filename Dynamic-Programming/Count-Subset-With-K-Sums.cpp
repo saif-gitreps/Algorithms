@@ -29,3 +29,29 @@ int findWays(vector<int>& a, int k){
 	vector<vector<int>> dp(n, vector<int> (k+1, -1));
 	return kev(n-1, k, a, dp);
 }
+
+// This was the tabulation method, so apparently my top-down was also correct, theres something wrong with the problem in that site.
+int findWays(vector<int>& a, int k) {
+    int n = a.size();
+    vector<vector<int>> dp(n, vector<int>(k + 1, 0));
+
+    for(int i = 0 ; i < n ; i++){
+        dp[i][0] = 1;
+    }
+    if(a[0] <= k){
+        dp[0][a[0]] = 1;
+    }
+    for(int i = 1; i <  n ; i++){
+        for(int j = k; j >= 0; j--){
+            int pick = 0;
+            int not_pick = 0;
+            not_pick = dp[i-1][j];
+            if(a[i] <= j){
+                pick = dp[i-1][j-a[i]];
+            } 
+            dp[i][j] = pick + not_pick;
+        }
+    }
+
+    return dp[n - 1][k];
+}
