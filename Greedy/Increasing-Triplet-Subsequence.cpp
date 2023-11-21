@@ -17,3 +17,37 @@ public:
         return pq.size() >= 3;
     }
 };
+
+
+class Solution {
+// Three pointer idea, even this is stuck at that same test case,
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size() < 3){
+            return false;
+        }
+        int slow = nums[0];
+        int fast = nums[1];
+        int haste = nums[2];
+        for(int i = 3 ; i < nums.size(); i++){
+            if((slow < fast && slow < haste) && (fast < haste)){
+                return true;
+            }
+            if(nums[i] >= haste){
+                haste = nums[i];
+            }
+            if(nums[i-1] >= fast && nums[i-1] < haste){
+                fast = nums[i-1];
+            }
+            if(nums[i-2] >= slow && nums[i-2] < haste && nums[i-2]< fast){
+                slow = nums[i-2];
+            }
+        }
+        if((slow < fast && slow < haste) && (fast < haste)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
