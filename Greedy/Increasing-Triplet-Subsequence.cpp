@@ -51,3 +51,29 @@ public:
         }
     }
 };
+
+
+class Solution {
+// So my intuition was correect i just needed to find the correct pattern of finding min , mid and max.
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size() < 3){
+            return false;
+        }
+        int slow = INT_MAX;
+        int fast = INT_MAX;
+        
+        for(int i = 0 ; i < nums.size(); i++){
+            if(nums[i] > fast){
+                return true;
+            }
+            else if(nums[i] > slow && nums[i] < fast){
+                fast = nums[i];
+            }
+            else if(nums[i] < slow){
+                slow = nums[i];
+            }
+        }
+        return false;
+    }
+};
