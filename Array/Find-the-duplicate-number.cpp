@@ -24,3 +24,20 @@ public:
         return slow;
     }
 };
+
+class Solution {
+// I like this approach even better, here we will treat every number as an index,since they said
+// its 1...n+1 inclusive. So we wil take a number and we will set that number to negative. like a[number] = -a[number]
+// that basically means if we get negative on the same index twice , we output the index number.
+public:
+    int findDuplicate(vector<int>& nums) {
+       for(auto curr : nums){
+           int i = abs(curr);
+           if(nums[i] < 0){
+               return i;
+           }
+           nums[i] = -nums[i];
+       }
+       return nums.size();
+    }
+};
