@@ -25,3 +25,32 @@ int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) {
 	return kev(n-1, maxWeight, weight, value , dp);
 	
 }
+
+// tabulation done successfully.
+#include <bits/stdc++.h> 
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) {
+	vector<vector<int>> dp( n, vector<int> (maxWeight+1, 0));
+	// ok so in tabluation , we need to write nested loops
+	// according to the changing parameters, here Wt and N
+	// is the changing parameter
+	for(int i = 0; i < n; i++){
+		for(int w = maxWeight; w >= 0; w--){
+			if(i == 0){
+				if(w >= weight[i]){
+					dp[i][w] = value[i];
+				}
+				else{
+					dp[i][w] = 0;
+				}
+				continue;
+			}
+			int not_pick = dp[i-1][w];
+			int pick = INT_MIN;
+			if(w >= weight[i]){
+				pick = dp[i-1][w-weight[i]] + value[i];
+			}
+			dp[i][w] = max(pick, not_pick);
+		}
+	}
+	return dp[n-1][maxWeight]; 
+}
