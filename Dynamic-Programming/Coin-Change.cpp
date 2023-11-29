@@ -60,3 +60,40 @@ public:
         return ans; 
     }
 };
+
+
+class Solution {
+// memoization worked.
+public:
+    int kev(int n, int t, vector<int> a, vector<vector<int>> &dp){
+       if(t < 0){
+           return 1e9;
+       }
+       if(n == 0){
+           if(t % a[n] == 0){
+               return t/a[n];
+           }
+           else{
+               return 1e9;
+           }
+       }
+       if(dp[n][t] != -1){
+           return dp[n][t];
+       }
+       // if i wont pick that number then i will move ahead.
+       int pick = 1 + kev(n, t - a[n], a, dp);
+       // if i will pick the number,
+       // i will test the limit and stay at the same index(infinte pick).
+       int not_pick = kev(n-1, t, a, dp);
+       return dp[n][t] = min(pick, not_pick);
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        vector<vector<int>> dp(n, (vector<int> (amount+1, -1)));
+        int ans = kev(n-1, amount, coins, dp);
+        if(ans == 1e9){
+            return -1;
+        }
+        return ans; 
+    }
+};
