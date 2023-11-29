@@ -97,3 +97,37 @@ public:
         return ans; 
     }
 };
+
+
+class Solution {
+//tabulation method.
+public:
+    int coinChange(vector<int>& a, int amount) {
+        int n = a.size();
+        vector<vector<int>> dp(n, (vector<int> (amount+1, 0)));
+        //int ans = kev(n-1, amount, coins, dp);
+
+        for(int i = amount; i >= 0; i--){
+            if(i % a[0] == 0){
+                dp[0][i] = i/a[0];
+            }
+            else{
+                dp[0][i] = 1e9;
+            }
+        }
+        for(int i = 1; i < n ; i++){
+            for(int val = 0; val <= amount; val++){
+                int pick = INT_MAX;
+                int not_pick = 0 + dp[i-1][val];
+                if(val >= a[i]){
+                    pick = 1 + dp[i][val - a[i]];
+                }
+                dp[i][val] = min(pick, not_pick);
+            }
+        }
+        if(dp[n-1][amount] >= 1e9){
+            return -1;
+        }
+        return dp[n-1][amount]; 
+    }
+};
