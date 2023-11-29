@@ -30,3 +30,45 @@ public:
         return kev(n-1, amount, coins, dp);
     }
 };
+
+
+class Solution {
+// apparantly its called unbounded knapsack lol.
+public:
+    int change(int amount, vector<int>& a) {
+        int n = a.size();
+        vector<vector<int>> dp(n, (vector<int> (amount+1, 0)));
+        for(int i = amount; i >= 0; i--){
+            if(i % a[0] == 0){
+                dp[0][i] = 1;
+            }
+        }
+        for(int i = 1; i < n ; i++){
+            for(int val = 0; val <= amount; val++){
+                int pick = 0;
+                int not_pick = 0;
+                not_pick = dp[i-1][val];
+                if(val >= a[i]){
+                    pick = dp[i][val - a[i]];
+                }
+                dp[i][val] = pick + not_pick;
+            }
+        }
+        return dp[n-1][amount]; 
+    }
+};
+
+class Solution {
+// optimized tabulation . have to study this.
+public:
+    int change(int amount, vector<int>& coins) {
+       vector<int>dp(amount+1);
+        dp[0]=1;
+        for(int i=0;i<coins.size();i++){
+            for(int j=coins[i];j<=amount;j++){
+               dp[j]+=dp[j-coins[i]]; 
+            }
+        }
+        return dp[amount];
+    }
+};
