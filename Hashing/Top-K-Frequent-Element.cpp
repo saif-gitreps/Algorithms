@@ -42,3 +42,29 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+// This is neet's bucket sort algorithm , it apparently and theoretically works O(n) times. space O(n) at most.
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector<int> ans;
+        unordered_map<int,int> mp;
+        vector<vector<int>> hash(nums.size()+1);
+        for(auto n : nums){
+            mp[n]++;
+        }
+        for(auto m: mp){
+            hash[m.second].push_back(m.first);
+        }
+        for(int i = hash.size()-1; i >= 0; i--){
+            for(auto n : hash[i]){
+                ans.push_back(n);
+                if(ans.size() == k){
+                    return ans;
+                }
+            }
+        }
+        return ans;   
+    }
+};
