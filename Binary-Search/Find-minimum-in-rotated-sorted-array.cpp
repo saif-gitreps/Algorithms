@@ -22,3 +22,25 @@ public:
         return mn;
     }
 };
+
+
+class Solution {
+// wait i ll get back to u with the explanation.
+public:
+    int findMin(vector<int>& nums) {
+        int mn = nums[0];
+        int left = 0;
+        int right = nums.size()-1;
+        while(left <= right){
+            int mid = (left + right) / 2;
+            mn = min(mn, nums[mid]);
+            if(nums[mid] > nums[right]){
+                left = mid + 1;
+            }
+            else{
+                right = mid - 1;
+            }
+        }
+        return mn;
+    }
+};
