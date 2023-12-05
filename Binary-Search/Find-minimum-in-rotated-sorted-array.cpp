@@ -26,6 +26,11 @@ public:
 
 class Solution {
 // wait i ll get back to u with the explanation.
+// So, we just have to find which half of the array our mid is on, ex, 3,4,5,1,2 <- 345 is one half.
+// we can either compare the left most element or right most element.
+// If our right most element is smaller than mid element , then we know we are at the first half, and we have
+// to move to other half. and while traversing we just compute min element along with it.
+// Our goal here is to find the transition line in the rotated array.
 public:
     int findMin(vector<int>& nums) {
         int mn = nums[0];
