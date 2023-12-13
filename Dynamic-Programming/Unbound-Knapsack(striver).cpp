@@ -19,3 +19,24 @@ int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
     vector<vector<int>> dp(n, vector<int> (w+1, -1));
     return kev(n-1, w, profit, weight, dp);
 }
+
+//Tabulation works 100% (Y) 
+
+int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
+    vector<vector<int>> dp(n, vector<int> (w+1, 0));
+    //return kev(n-1, w, profit, weight, dp);
+    for(int i = 0; i <= w; i++){
+        dp[0][i] = (i / weight[0]) * profit[0]; 
+    }
+    for(int i = 1; i < n; i++){
+        for(int j = 1; j <= w; j++){
+            int not_pick = dp[i-1][j];
+            int pick = 0;
+            if(j >= weight[i]){
+                pick = profit[i] + dp[i][j - weight[i]];
+            }
+            dp[i][j] = max(pick, not_pick);
+        }
+    }
+    return dp[n-1][w];
+}
