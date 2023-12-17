@@ -31,3 +31,30 @@ public:
         return nums[nums.size() - k];      
     }
 };
+
+
+bool compare(string a , string b){
+    if(a.size() == b.size()){
+        if(a < b){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else if(a.size() < b.size()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+class Solution {
+// YAY , it worked, the hint helped me.
+public:
+    string kthLargestNumber(vector<string>& nums, int k) {
+        sort(nums.begin(), nums.end(), compare);
+        //sort(nums.begin(), nums.end());
+        return nums[nums.size() - k];      
+    }
+};
