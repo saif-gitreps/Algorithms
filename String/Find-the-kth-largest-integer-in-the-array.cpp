@@ -58,3 +58,42 @@ public:
         return nums[nums.size() - k];      
     }
 };
+
+
+
+class Solution {
+// an example using MAX HEAP.
+public:
+    struct compare{
+        bool operator()(string &a , string &b){
+            if(a.size() == b.size()){
+                for(int i = 0; i < a.size(); i++){
+                    if(a[i] - '0' > b[i] - '0'){
+                        return true;
+                    }
+                    else if(a[i] - '0' < b[i] - '0'){
+                        return false;
+                    }
+                }
+                return false;
+            }
+            else if(a.size() > b.size()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    };
+    string kthLargestNumber(vector<string>& nums, int k) {
+        int n = nums.size();
+        priority_queue<string, vector<string> , compare> q;
+        for(auto x : nums){
+            q.push(x);
+            if(q.size() > k){
+                q.pop();
+            }
+        }
+        return q.top();    
+    }
+};
