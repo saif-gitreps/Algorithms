@@ -89,3 +89,33 @@ public:
         return str;
     }
 };
+
+
+class Solution {
+/*
+    So I understood the basic concept here, the edge case that was holding me back was that 
+    How do I keep sorted words together such that their sequence is maintained?
+    Here the idea is that we keep a sorted map, where the key is the word's size, and we append all of the 
+    words with similar lengths together, because let's think about it, in a sorted sentence, the words with
+    same lengths with always be grouped , so why dont we just append all the grouped words in a one long string 
+    value and have its key as its length. Idk this didnt come to my mind, also learned about this stringstream thing.
+*/
+public:
+    string arrangeWords(string text) {
+        text[0] = text[0] + 32;
+        map<int, string >mp;
+        stringstream words(text);
+        string str;
+        while(words >> str){
+            mp[str.size()] += str + " ";
+        }
+        str = "";
+        for(const auto &s : mp){
+            str += s.second;
+        }
+        str.pop_back();
+        str[0] = str[0] - 32;
+        return str;
+    }
+};
+
