@@ -48,3 +48,36 @@ public:
     }
 };
 
+
+
+class Solution {
+//Base condition is when we either have picked 3 buildings, or else we have reached end of string.
+//Note : We are assuming that if no building is picked, then prev = 2.
+//Our changing variables are prev, len, and index. prev being a tracker for the last picked item.
+public:
+    long long dp[100003][3][4];    
+    long long kev(int i, int prev, int len, string &s){
+        if(len == 3){
+            return 1;
+        }
+        if(i == s.size()){
+            return 0;
+        }
+        if(dp[i][prev][len] != -1){
+            return dp[i][prev][len];
+        }
+        long long ans = 0;
+        ans = kev(i + 1, prev, len , s);
+        if(prev != s[i] - '0'){
+            ans += kev(i + 1, s[i] - '0' , len + 1, s);
+        }
+        return dp[i][prev][len] = ans;
+    }
+
+    long long numberOfWays(string s) {
+        int n = s.size();
+        memset(dp, -1, sizeof(dp));
+        return kev(0, 2, 0, s);
+        //return dp[n-1][2][0];
+    }
+};
