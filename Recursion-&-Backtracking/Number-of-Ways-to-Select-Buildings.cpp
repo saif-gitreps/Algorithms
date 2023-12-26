@@ -29,3 +29,22 @@ long long numberOfWays(string s) {
 }
 
 };
+
+class Solution {
+// naive bruteforce , show tle.
+public:
+    long long numberOfWays(string s) {
+        int count = 0;
+        for(int i = 0; i < s.size(); i++){
+            for(int j = i + 1; j < s.size(); j++){
+                for(int k = j + 1; k < s.size(); k++){
+                    if(s[i] != s[j] && s[j] != s[k]){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+};
+
