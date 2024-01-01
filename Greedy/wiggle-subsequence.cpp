@@ -103,3 +103,55 @@ public:
         return kev(n - 1,nums, temp);
     }
 };
+
+
+
+class Solution {
+public:
+    // this was one of the ways of solving it.
+    int wiggleMaxLength(vector<int>& a) { 
+        if (a.size() < 2){
+            return 1;
+        }
+        int inc = 1;
+        int dec = 1;
+
+        for(int i = 1; i < a.size() ; i++){
+            if(a[i] > a[i - 1]){
+                inc = dec + 1;
+            }
+            else if(a[i] < a[i - 1]){
+                dec = inc + 1;
+            }
+        }
+        return max(inc, dec);
+    }
+};
+
+
+class Solution {
+// this was the ideal greedy , difference to my original was that we shouldnt have added a reset case for false .
+// also i need to increase my logical thinking.
+public:
+    int wiggleMaxLength(vector<int>& nums) {
+        if(nums.size() < 2){
+            return 1;
+        }
+
+        int prev = nums[1] - nums[0];
+        int count = prev == 0 ? 1 : 2;
+
+        for(int i = 2 ; i < nums.size(); i++){
+            int diff = nums[i] - nums[i - 1];
+            if(prev <= 0 && diff > 0){
+                count ++;
+                prev = diff;
+            }
+            else if(prev >= 0 && diff < 0){
+                count ++;
+                prev = diff;
+            }   
+        }
+        return count;
+    }
+};
