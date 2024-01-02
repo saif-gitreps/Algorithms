@@ -28,6 +28,7 @@ public:
 
 class Solution {
 // passes 46 / 47 cases and shows TLE , have to do tabulation.
+// so the recursive approach is a bit new to me so this will take a while to get used to .
 public:
     int kev(int i1, int i2, string s1, string s2, vector<vector<int>> &dp){
         if(i1 < 0 || i2 < 0){
@@ -46,5 +47,63 @@ public:
         //memset(dp, -1, sizeof(n));
         vector<vector<int>> dp(n, vector<int> (n, -1));
         return kev(text1.size() - 1, text2.size() - 1, text1, text2, dp);
+    }
+};
+
+
+class Solution {
+// in the tabulation , we shift the numbers one digit to the right, so we made the dp array
+// 1 indexed instead of 0 index, but we are checking in i - 1 and j - 1 for proper index mapping.
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = max(text1.size(), text2.size());
+        
+        vector<vector<int>> dp(text1.size()+1, vector<int> (text2.size()+1, 0));
+        
+        for(int i = 0 ; i <= text1.size() ; i ++){
+            for(int j = 0 ; j <= text2.size() ; j ++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                }
+                else if(text1[i - 1] == text2[j - 1]){
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } 
+                else{
+                    dp[i][j] = max(dp[i - 1][j] , dp[i][j -  1]);
+                }
+            }
+        }
+        return dp[text1.size()][text2.size()];
+
+    }
+};
+
+class Solution {
+// kind of confused for the space optimized solution .
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = max(text1.size(), text2.size());
+        
+        //vector<vector<int>> dp(text1.size()+1, vector<int> (text2.size()+1, 0));
+
+        vector<int> prev(text2.size() + 1);
+        vector<int> curr(text2.size() + 1);
+
+        for(int i = 0 ; i <= text1.size() ; i ++){
+            for(int j = 0 ; j <= text2.size() ; j ++){
+                if(i == 0 || j == 0){
+                    prev[j] = 0;
+                }
+                else if(text1[i - 1] == text2[j - 1]){
+                    curr[j] = 1 + prev[j - 1];
+                } 
+                else{
+                    curr[j] = max(curr[j - 1] , prev[j]);
+                }
+                prev = curr;
+            }
+        }
+        return prev[text2.size()];
+
     }
 };
