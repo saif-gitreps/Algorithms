@@ -35,3 +35,35 @@ public:
         return kev(0, "", s, dp);
     }
 };
+
+class Solution {
+// the same concept as longest common subsequence, you take the string reverse it, then find the LCS between them original and reversed.
+public:
+    bool check(string s){
+        for(int i = 0; i < s.size() / 2; i++){
+            if(s[i] != s[s.size() - i - 1]){
+                return false;
+            }
+        }
+        return true;
+    }
+    int kev(int i, int j, string s1, string s2, vector<vector<int>> &dp){
+        if(i < 0 || j < 0){
+            return 0;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        if(s1[i] == s2[j]){
+            return dp[i][j] =  1 + kev(i - 1, j - 1, s1, s2, dp);
+        }
+        return dp[i][j] = max(kev(i, j - 1, s1, s2, dp), kev(i - 1, j , s1, s2, dp));
+    }
+    int longestPalindromeSubseq(string s) {
+        int n = s.size();
+        string s2 = s;
+        reverse(s.begin() , s.end());
+        vector<vector<int>> dp(n, vector<int> (n, -1));
+        return kev(n-1, n-1, s, s2, dp);
+    }
+};
