@@ -57,3 +57,39 @@ class Solution {
         return mx;
     }
 };
+
+
+class Solution {
+// basically we store the index of the last open bracket, if we find a close bracket
+// we first check if stack is not empty, that means there exists atleast one open brac,
+// we mark both open and close index as random  char.
+public:
+    int longestValidParentheses(string a) {
+        stack<int> s;
+        for(int i = 0; i < a.size(); i++){
+            if(a[i] == '('){
+                s.push(i);
+            }
+            else{
+                if(s.size() >= 1){
+                    a[s.top()] = '*';
+                    a[i] = '*';
+                    s.pop();
+                }
+            }
+        }
+        int mx = 0, curr = 0;
+        // here i <= a.size() is because , we know it is a garbage value 
+        // and hence else will be executed to get the final max value.
+        for(int i = 0; i <= a.size(); i++){
+            if(a[i] == '*'){
+                curr++;
+            }
+            else{
+                mx = max(mx, curr);
+                curr = 0;
+            }
+        }
+        return mx;
+    }
+};
