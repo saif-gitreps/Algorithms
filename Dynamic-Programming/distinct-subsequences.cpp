@@ -68,3 +68,37 @@ public:
     }
 
 };
+
+
+class Solution {
+// so the tabulation was showing some test case errors ,we had to adapt. typecast.
+public:
+    int numDistinct(string s, string t) {
+        int n = s.size();
+        int m = t.size();
+        vector<vector<double>> dp(n + 1, vector<double> (m + 1, 0));
+
+        //this means for every index of i, if j is 0 then put 1.
+        for(int i = 0; i <= n; i++){
+            dp[i][0] = 1;
+        }
+        // we dont need this because , during dp declaration we already gave inner array as 0.
+        // for(int j = 0; j <= m; j++){
+        //     dp[1][j] = 0;
+        // }
+        for(int i = 1 ; i <= n; i ++){
+            for(int j = 1; j <= m; j ++){
+                double pick = 0, not_pick = 0;
+                if(s[i - 1] == t[j -1]){
+                    pick = dp[i-1][j-1] + dp[i-1][j];
+                }
+                else{
+                    not_pick = dp[i-1][j];
+                }
+                dp[i][j] = pick + not_pick; 
+            }
+        }
+        return (int)dp[n][m];
+    }
+
+};
