@@ -96,3 +96,24 @@ public:
         return dp[0][n-1];
     }
 };
+
+
+class Solution {
+// this is n ^ 2 version of the previous solution .
+// The intuition is well explaned in the video , check it out.
+public:
+    int maxSumDivThree(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(n, vector<int> (3, 0));
+        dp[0][nums[0] % 3] = nums[0];
+
+        for(int i = 1; i < n; i++){
+            for(int j = 0; j < 3; j++){
+                int res = (dp[i - 1][j] + nums[i]) % 3;
+                dp[i][res] = max(dp[i][res], (dp[i - 1][j] + nums[i]));
+                dp[i][j] = max(dp[i-1][j] , dp[i][j]);  
+            }
+        }
+        return dp[n-1][0];
+    }
+};
