@@ -43,3 +43,59 @@ public:
         return max_len==-1?0:max_len;
     }
 };
+
+class Solution {
+// HAHHAHAHA, solved it , bascially when we find a unique guy , we store his index. then when we encounter something non-unique, we jump back to that index.
+public:
+    int lengthOfLongestSubstring(string s) {
+        int mx = 0;
+        int seq = 0;
+        unordered_map<char,int> mp;
+        for(int i = 0 ; i < s.size(); i++){
+            // we also store the index of the unique one
+            if(!mp.count(s[i])){
+                seq++;
+                mp[s[i]] = i;
+                mx = max(mx, seq);
+            }
+            else{
+                seq = 0;
+                i = mp[s[i]];
+                mp = {};
+            }
+        }
+        return mx;
+    }
+};
+
+
+class Solution {
+// this is also called sliding window technique.
+// interesting solution , we keep two pointers , 'j' pointer will keep on moving if we keep on getting unique chars.
+// if we get a duplicate char, then we erase using the 'i' pointer , incre 'i'.
+// meanwhile we keep a max of (j - i), try simulating it yourself. its easy.
+public:
+	int lengthOfLongestSubstring(string s) 
+	{
+		unordered_set<char> set;
+    
+		int i = 0, j = 0, n = s.size(), ans = 0;
+    
+		while( i<n && j<n)
+		{
+			if(set.find(s[j]) == set.end()) //If the character does not in the set
+			{
+				set.insert(s[j++]); //Insert the character in set and update the j counter
+				ans = max(ans, j-i); //Check if the new distance is longer than the current answer
+			}
+			else
+			{
+				set.erase(s[i++]); 
+				/*If character does exist in the set, ie. it is a repeated character, 
+				we update the left side counter i, and continue with the checking for substring. */
+			}
+		}
+    
+		return ans;
+	}
+};
