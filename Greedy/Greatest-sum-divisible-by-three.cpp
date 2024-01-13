@@ -69,3 +69,30 @@ public:
         return dp[n-1][sum];
     }
 };
+
+
+class Solution {
+
+https://www.youtube.com/watch?v=fH-d_w3Cs4g
+public:
+    int maxSumDivThree(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(3, vector<int> (n, 0));
+        dp[nums[0] % 3][0] = nums[0];
+
+        for(int i = 1; i < n; i++){
+            int res0 = (nums[i] + dp[0][i -1]) % 3;
+            int res1 = (nums[i] + dp[1][i -1]) % 3;
+            int res2 = (nums[i] + dp[2][i -1]) % 3;
+
+            dp[res0][i] = max(dp[res0][i], dp[0][i -1] + nums[i]);
+            dp[res1][i] = max(dp[res1][i], dp[1][i -1] + nums[i]);
+            dp[res2][i] = max(dp[res2][i], dp[2][i -1] + nums[i]);
+
+            dp[0][i] = max(dp[0][i - 1], dp[0][i]);
+            dp[1][i] = max(dp[1][i - 1], dp[1][i]);
+            dp[2][i] = max(dp[2][i - 1], dp[2][i]);
+        }
+        return dp[0][n-1];
+    }
+};
