@@ -46,3 +46,66 @@ public:
         return d;
     }
 };
+
+class Solution {
+// this was easy solution , we basically have two arrays and we mark seconds.
+// one from left and one right right.
+// then we compare based off some conditions.
+public:
+    string pushDominoes(string d) {
+        int n = d.size();
+        vector<int> left(n, 0);
+        vector<int> right(n, 0);
+        char prev = '.';
+        int count = 1;
+        for(int i = 0 ; i < n; i++){
+            if(d[i] == 'R'){
+                prev = 'R';
+                count = 1;
+                continue;
+            }
+            else if(d[i] == 'L'){
+                prev = 'L';
+            }
+            else if(prev == 'R' && d[i] == '.'){
+                right[i] = count;
+                count++;
+            }
+        }
+        count = 1; prev = '.';
+        for(int i = n - 1; i >= 0; i--){
+            if(d[i] == 'L'){
+                prev = 'L';
+                count = 1;
+            }
+            else if(d[i] == 'R'){
+                prev = 'R';
+            }
+            else if(prev == 'L' && d[i] == '.'){
+                left[i] = count;
+                count++;
+            }
+        }
+        for(int i = 0; i < n; i++){
+            if(left[i] == 0 &&  right[i] == 0){
+                continue;
+            }
+            else if(left[i] == 0){
+                d[i] = 'R';
+            }
+            else if(right[i] == 0){
+                d[i] = 'L';
+            }
+            else if(left[i] == right[i]){
+                d[i] = '.';
+            }
+            else if(left[i] > right[i]){
+                d[i] = 'R';
+            }
+            else{
+                d[i] = 'L';
+            }
+        }
+        return d;
+    }
+};
