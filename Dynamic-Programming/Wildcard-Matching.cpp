@@ -122,3 +122,37 @@ public:
         return dp[n][m];
     }  
 };
+
+class Solution {
+// so called space optimzed sol.
+public:
+    bool isMatch(string s, string p) {
+        int n = s.size();
+        int m = p.size();
+        vector<int> curr(m + 1, false), prev(m + 1, false);
+        prev[0] = true;
+        for(int j = 1; j <= m; j++){
+            int check = true;
+            for(int remaining = 1; remaining <= j; remaining++){
+                if(p[remaining - 1] != '*'){
+                    check = false; break;
+                }
+            }
+            prev[j] = check;
+        }
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= m; j++){
+                int ans = 0;
+                if(s[i - 1] == p[j - 1] || p[j - 1] == '?'){
+                    ans += prev[j - 1];
+                }
+                else if(p[j - 1] == '*'){
+                    ans += (prev[j] || curr[j - 1]);
+                }
+                curr[j] = ans;
+            }
+            prev = curr;
+        }
+        return prev[m];
+    }  
+};
