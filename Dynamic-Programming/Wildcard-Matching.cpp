@@ -85,3 +85,40 @@ public:
         return kev(n - 1, m - 1, s,  p, dp);
     }  
 };
+
+class Solution {
+// tab works.
+public:
+    bool isMatch(string s, string p) {
+        int n = s.size();
+        int m = p.size();
+        vector<vector<int>> dp(n + 1 , vector<int> (m + 1 , -1));
+        
+        dp[0][0] = true;
+        for(int i = 1; i <= n; i++){
+            dp[i][0] = false;
+        }
+        for(int j = 1; j <= m; j++){
+            int check = true;
+            for(int remaining = 1; remaining <= j; remaining++){
+                if(p[remaining - 1] != '*'){
+                    check = false; break;
+                }
+            }
+            dp[0][j] = check;
+        }
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= m; j++){
+                int ans = 0;
+                if(s[i - 1] == p[j - 1] || p[j - 1] == '?'){
+                    ans += dp[i - 1][j - 1];
+                }
+                else if(p[j - 1] == '*'){
+                    ans += (dp[i - 1][j] || dp[i][j - 1]);
+                }
+                dp[i][j] = ans;
+            }
+        }
+        return dp[n][m];
+    }  
+};
