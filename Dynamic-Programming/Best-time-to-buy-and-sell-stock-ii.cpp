@@ -66,3 +66,31 @@ public:
         return dp[0][1];
     }
 };
+
+
+class Solution {
+//bruh understanding the problem is so important, idk why I am so dumb.
+//The idea was that :
+/*
+    It is so simple because you can sell and buy on the same day which means you don't
+    need to hold and optimize for the largest profit. Any increase between days is an increment of 
+    the maximum profit because of math. 
+    (There's also the omniscient ability to "never buy" if the price never goes back up.)
+
+    The idea is that because you can trade multiple times a day at no cost, 
+    all you're looking for is if the previous day is worth more than the 
+    current day and add their difference to the total profit.
+*/
+public:
+    int n;
+    int maxProfit(vector<int>& prices) {
+       int profit = 0;
+       n = prices.size();
+        for(int i=1;i<n;i++) {
+            if(prices[i] > prices[i-1]) {
+                profit += prices[i] - prices[i-1];
+            }
+        }
+        return profit;
+    }
+};
