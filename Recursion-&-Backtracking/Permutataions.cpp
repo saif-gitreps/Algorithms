@@ -44,3 +44,41 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+/*
+  
+first, we try to find the breaking point
+, if no breaking point then send rev of that arr and return;
+
+if we find a breaking point, then try to find the smallest from n - 1 till the breaking point,
+swap the smallest, and break.
+
+then one thing we know is since we found the breaking point, 
+anything after that is sorted in the reverse order, so we reverse everything after the breaking point.
+thats it.
+*/
+public:
+    void nextPermutation(vector<int>& nums) {
+        int bp = -1;
+        for(int i = nums.size() - 1; i >= 1; i--){
+            if(nums[i - 1] < nums[i]){
+                bp = i - 1;
+                break;
+            }
+        }
+        if(bp == -1){
+            reverse(nums.begin(), nums.end());
+            return;
+        }
+        for(int i = nums.size() - 1; i > bp; i--){
+            if(nums[i] > nums[bp]){
+                swap(nums[i], nums[bp]);
+                break;
+            }
+        }
+        reverse(nums.begin() + bp + 1, nums.end());
+        return;
+    }
+};
