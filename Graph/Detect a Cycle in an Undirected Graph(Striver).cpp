@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// } Driver Code Ends
+//BFS
 class Solution {
   public:
     bool bfs(int src, vector<int> adj[], vector<int> &vis){
@@ -39,6 +39,72 @@ class Solution {
         for(int i = 0; i < V; i++){
             if(vis[i] != 1){
                 if(bfs(i, adj, vis) == true){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+        
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+        vector<int> adj[V];
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        Solution obj;
+        bool ans = obj.isCycle(V, adj);
+        if (ans)
+            cout << "1\n";
+        else
+            cout << "0\n";
+    }
+    return 0;
+}
+
+
+
+
+
+
+// DFS
+class Solution {
+  public:
+    bool dfs(int src, int parent,vector<int> adj[], vector<int> &vis){
+        vis[src] = 1;
+        
+        for(auto n : adj[src]){
+            if(vis[n] != 1){
+                vis[n] = 1;
+                if (dfs(n, src, adj, vis) == true ){
+                    return true;
+                }
+            }
+            else if(parent != n){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool isCycle(int V, vector<int> adj[]) {
+        
+        vector<int> vis(V+1, 0);
+        
+        for(int i = 0; i < V; i++){
+            if(vis[i] != 1){
+                if(dfs(i, -1, adj, vis) == true){
                     return true;
                 }
             }
