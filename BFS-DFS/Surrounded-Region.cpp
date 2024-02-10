@@ -42,3 +42,58 @@ public:
         }
     }
 };
+
+
+class Solution {
+public:
+    void dfs(int row, int col, vector<vector<char>> &a){
+        if(row < 0 
+        || col < 0 
+        || row >= a.size() 
+        || col >= a[0].size() 
+        || a[row][col] != 'O'
+        ){
+            return;
+        }
+
+        a[row][col] = 'L';
+
+        dfs(row - 1, col, a);
+        dfs(row + 1, col, a);
+        dfs(row, col - 1, a);
+        dfs(row, col + 1, a);
+    }
+    void solve(vector<vector<char>>& a) {
+        int n = a.size();
+        int m = a[0].size();
+         
+        for(int i = 0 ; i < n; i++){
+            if(a[i][0] == 'O'){
+                dfs(i, 0, a);
+            }
+            if(a[i][m-1] == 'O'){
+                dfs(i, m - 1, a);
+            }
+        }
+
+        for(int j = 0 ; j < m; j++){
+            if(a[0][j] == 'O'){
+                dfs(0, j, a);
+            }
+            if(a[n-1][j] == 'O'){
+                dfs(n - 1, j, a);
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m ; j++){
+                if(a[i][j] == 'O'){
+                    a[i][j] = 'X';
+                }
+                if(a[i][j] == 'L'){
+                    a[i][j] = 'O';
+                }
+            }
+        }
+    }
+};
