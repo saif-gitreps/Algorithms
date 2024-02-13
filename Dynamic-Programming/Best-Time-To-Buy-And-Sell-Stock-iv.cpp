@@ -63,3 +63,31 @@ public:
         return dp[0][1][k];
     }
 };
+
+
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+
+        vector<vector<int>> dp(n + 1, vector<int> (k * 2 + 1, 0));
+
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int trans = 0; trans < k * 2 ; trans++) {
+                if (trans % 2 == 0) { 
+                    dp[ind][trans] = max(
+                        dp[ind + 1][trans],
+                        -prices[ind] + dp[ind + 1][trans + 1]
+                    );
+                }
+                else {
+                    dp[ind][trans] = max(
+                        dp[ind + 1][trans],
+                        prices[ind] + dp[ind + 1][trans + 1]
+                    );
+                }
+            }
+        }
+        return dp[0][0];
+    }
+};
