@@ -67,3 +67,32 @@ public:
 
     }
 };
+
+
+class Solution {
+// in this problem we know we are allowed to do two transaction only
+// that means buy sell buy sell
+// we could also put this as 0 1 2 3 where even means buy odd means sell.
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        vector<vector<int>> dp(n + 1, vector<int>(5, 0));
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int trans = 0; trans < 4; trans++) {
+                if (trans % 2 == 0) { 
+                    dp[ind][trans] = max(
+                        dp[ind + 1][trans],
+                        -prices[ind] + dp[ind + 1][trans + 1]
+                    );
+                }
+                else {
+                    dp[ind][trans] = max(
+                        dp[ind + 1][trans],
+                        prices[ind] + dp[ind + 1][trans + 1]
+                    );
+                }
+            }
+        }
+        return dp[0][0];
+    }
+};
