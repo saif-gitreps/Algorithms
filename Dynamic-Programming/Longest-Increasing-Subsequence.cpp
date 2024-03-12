@@ -25,3 +25,27 @@ public:
         return kev(-1, 0, nums, dp);
     }
 };
+
+
+class Solution {
+// try to simulate this -> 5 , 4, 11, 8, 1, 16. Each index is basically an ans of 1.
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp;
+        dp.resize(size(nums), 1);
+        int ans = 0;
+
+        for(int i = 0; i < nums.size(); i++){
+            for(int prev = 0; prev < i; prev++){
+                if(nums[prev] < nums[i]){
+                    dp[i] = max(dp[i], dp[prev] + 1);
+                }
+            }
+            ans = max(ans, dp[i]);
+        }
+
+        
+        return ans;
+
+    }
+};
