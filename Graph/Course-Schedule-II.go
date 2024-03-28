@@ -67,3 +67,39 @@ func findOrder(n int, a [][]int) []int {
         return nil;
     }
 }
+
+
+// more optimised solution, we calculate the indegree right in the first for loop.
+
+
+func findOrder(numCourses int, prerequisites [][]int) []int {
+    adjs := make([][]int, numCourses)
+    ins := make([]int, numCourses)
+    for _, preq := range prerequisites {
+        adjs[preq[1]] = append(adjs[preq[1]], preq[0])
+        ins[preq[0]]++
+    }
+    q := list.New()
+    for i, in := range ins {
+        if in == 0 {
+            q.PushBack(i)
+        }
+    }
+    courses := make([]int, 0, numCourses)
+    for q.Len() > 0 {
+        front := q.Front()
+        q.Remove(front)
+        course := front.Value.(int)
+        courses = append(courses, course)
+        for _, adj := range adjs[course] {
+            ins[adj]--
+            if ins[adj] == 0 {
+                q.PushBack(adj)
+            }
+        }
+    }
+    if len(courses) != numCourses {
+        return nil
+    }
+    return courses
+}
