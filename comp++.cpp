@@ -8,6 +8,17 @@ vector<vector<int>> g(N);
 vector<bool> visit(N);
 vector<int> level(N);
 
+int arrayBasedUniqueKeyGenerate(vector<int> options){
+         int key = 0;
+        for(auto opt: options){
+            key <<= 1;
+            if(!opt){
+                key |= 1;
+            }
+        }
+       return key = (int)key;
+}
+
 class TreeNode {
 public:
    int val;
