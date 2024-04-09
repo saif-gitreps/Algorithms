@@ -79,11 +79,16 @@ public:
 class Solution {
 /*
   The player 1 intuition was right, either you pick from left or from right and maximize it
-  But the player 2 intuition was wrong i think, i made it to maximise it for P2 as well.
-  What i should have done is written the recursion to minimize the result for P2.
-  In this problem we sort of are making 4 decisions. pick1 and pick2 for P1 and inner min() for p2.
+  But the player 2 intuition was wrong i think, I made it to maximize it for P2 as well.
+  What I should have done is write the recursion to minimize the result for P2.
+  In this problem, we are making 4 decisions. pick1 and pick2 for P1 and inner min() for p2.
 
   For p2 we are minimizing and for p1 we are maximizing.
+
+  Update: We are not minimizing for P2, instead what we were thinking is that P2 will choose the best for 
+  himself, so we expect the worst options for ourselves. 
+  From those worse options, I need to maximize the P1 results.
+  Yea so my intuition was indeed on the right track except for execution.
 */
 public:
     vector<vector<int>> dp;
