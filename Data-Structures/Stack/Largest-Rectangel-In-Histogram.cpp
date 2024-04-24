@@ -21,7 +21,14 @@ public:
     }
 };
 
-// better solution, O(n) technically O(3n).
+/*
+    better solution, O(n) technically O(3n).
+    we will keep two array, the right boundary and the left boundary.
+    we will use a monotonic stack for this.
+    both right and left array will calculate the boundary for each element in the array Height.
+
+    need to watch over and over again to understand this problem.
+*/
 class Solution {
 public:
     int largestRectangleArea(vector<int>& h) {
