@@ -184,3 +184,57 @@ func gameOfLife(board [][]int)  {
         }
     }
 }
+
+// Space optimized solution , O(1).
+
+func cellCounts(board[][] int, i int, j int) int{
+    liveCells := 0;
+    comb := [][]int{{-1, -1},{0, -1},
+                    {-1, 1}, {-1, 0},
+                    {0, 1}, {1, -1},
+                    {1, 0}, {1, 1}, };
+
+    for k := 0; k < 8; k++ {
+        r := i + comb[k][0];
+        c := j + comb[k][1];
+        if(r >= 0 && r < len(board) && c >= 0 && c < len(board[i])){
+            if(board[r][c] == 1 || board[r][c] == 9){
+                liveCells++;
+            }
+        }
+    } 
+    return liveCells;
+}
+
+func gameOfLife(board [][]int)  {
+    for i := range board {
+        for j := range board[i] {
+            liveCells := cellCounts(board, i, j);
+            
+            if (board[i][j] == 1){
+                if (liveCells < 2){
+                    board[i][j] = 9;
+                
+                } else if (liveCells == 2 || liveCells == 3){
+                    board[i][j] = 1;
+                
+                } else if (liveCells > 3){
+                    board[i][j] = 9;
+                }
+            } else{
+                if(liveCells == 3){
+                    board[i][j] = 6;
+                }
+            }
+        }
+    }
+    for i := range board {
+        for j := range board[i] {
+            if (board[i][j] == 6) {
+                board[i][j] = 1;
+            } else if (board[i][j] == 9){
+                board[i][j] = 0;
+            }
+        }
+    }
+}
