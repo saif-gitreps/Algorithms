@@ -91,3 +91,30 @@ public:
         return kev(0, days, costs, dp);
     }
 };
+
+
+class Solution {
+// Tabulation / bottom up .
+public:
+    int mincostTickets(vector<int>& days, vector<int>& c) {
+        vector<int> dp(days.size() + 1, 0);
+        int n = days.size();
+        
+        for(int i = n - 1; i >= 0; i--){
+            int seven_days = INT_MAX, thirty_days = INT_MAX, j = 0;
+        
+            for(j = i; j < days.size() && days[j] < days[i] + 7; j++);
+            seven_days = min(seven_days, c[1] + dp[j]);
+            
+            for(j = i; j < days.size() && days[j] < days[i] + 30; j++);
+            thirty_days = min(thirty_days, c[2] + dp[j]);
+
+            dp[i] = min({
+                c[0] + dp[i + 1],
+                seven_days,
+                thirty_days
+            });
+        }
+        return dp[0];
+    }
+};
