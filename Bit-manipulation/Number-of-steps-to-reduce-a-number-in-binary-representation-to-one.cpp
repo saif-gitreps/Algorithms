@@ -35,3 +35,26 @@ public:
 
     }
 };
+
+class Solution {
+public:
+    int numSteps(string s) {
+        // for the best case scenario. ex: 10000, for this res is 4.
+        int count = s.size() - 1;
+        int carry = 0;
+        
+        for(int i = s.size() - 1; i >= 1; i --){
+            // for case where ex: 1011, we know that it is odd
+            // so we add 1 to it. that makes it 1100. now this is even.
+            // so we divide it. the divide operation costs us one count++.
+            // and we hold a carry.
+            if(s[i] - '0' + carry == 1){
+                count++;
+                carry = 1;
+            }
+        }
+        
+        return count + carry;
+
+    }
+};
