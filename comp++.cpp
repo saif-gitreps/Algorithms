@@ -46,8 +46,9 @@ TreeNode* buildBSTree(vector<int>& nums, int start, int end) {
 }
 
 TreeNode * buildTree(vector<int> a,int i){
-/* To build a complete binary tree, if an array was 1 2 3 4 5 6 7,
-   our tree would be :
+/* 
+    To build a complete binary tree, if an array was 1 2 3 4 5 6 7,
+    our tree would be :
         1
        / \
       2   3
@@ -132,51 +133,111 @@ public:
 };
 
 
-   int minScoreTriangulation(vector<int>& values) {
-        set<vector<int>> st;
-        multiset<int> sums;
-        int n = 0;
-        for(int i = 0; i < values.size(); i++){
-            for(int j = 0; j < values.size(); j++){
-                for(int k = 0; k < values.size(); k++){
-                    
-                    vector<int> indexes = {i, j, k};
-                    sort(indexes.begin(), indexes.end());
-                    
-                    if(!st.count(indexes) && i != j && j != k && k != i){
-                        sums.insert(
-                            values[i] * values[j] * values[k]
-                        );
+/*
 
-                        st.insert(indexes);
-                    }
-                }
-            }
-        }
-        
-        for(auto s : st){
-             for(auto k : s){
-                  cout << k << " ";
-             }
-             cout << "\n";
-        }
+    three methods of Disjont Set Union.
+    - make() -> will a add a new indivual node. example 2<-4 5<-6,
+    adding make(8) will result in 2<-4, 5<-6 , 8
+    
+    - find() -> this will return the head of a union , we pass in any child or root 
+    as a param. Example: 2<-4, 5<-6, 8, find(4) is 2 (the root of this set).
 
-        for(auto s : sums) {
-            cout << s << " ";
-        }
+    - union() -> this will join heads for two diff sets, examples:
+    2<-4 and 5<-6 will be joined as :
+    2 <- 5
+    ^    ^
+    |    |
+    4    6
 
-        return 1;
+    TC is amortorized O(alpha(n)) [alpha(n) reverse ackerman function]
+    ackerman function basically says it grows slowly.
+
+    So overall operation cost is almost Constant time.
+
+
+*/
+
+const int Ne = 100000; 
+int parent[Ne];
+int size[Ne];
+
+void make(int v){
+    parent[v] = v;
+    size[v] = 1;
+}
+
+int find(int v){
+    if (v == parent[v]) {
+        return v;
+    }
+    // instead of this-> return find(parent[v]);
+    // we will do an extra step of path compression.
+    // ultimately at the end of recursion we will receive the root
+    // so it will backtrack and set every children on that tree to have parent of 
+    // returned root. 
+    parent[v] = find(parent[v]);
+}
+
+void Union(int a, int b){
+    // step 1: find the root of each nodes.
+    a = find(a);
+    b = find(b);
+
+    // step 2: If their roots are same that means they already joined sets.
+    if(a == b){
+        return;
     }
 
-
-
-
-
-int main(){
-   vector<vector<int>> a(5);
-
-   cout << 2 / 2;
-
-   
+    // step 3: Make parent of b as a, a <- b (b is pointing to its parent).
+    // We always make sure to join the largest tree is on the left, and smallest on the right.
+    if(size[a] < size[b]){
+        swap(a, b);
+    }
+    parent[b] = a;
+    size[a] += size[b];
 
 }
+
+int kev(int i,const vector<int> &a){
+    if(i >= a.size()){
+        return 0;
+    }
+    
+    int sum = 0, ans = 0, n = a.size() - 1;
+    
+    for(int k = i; k < min(i + 3, n); k++){
+        sum += a[k];
+        ans = max(ans, sum + min({
+            kev(i + k + 1, a),
+            kev(i + k + 2, a),
+            kev(i + k + 3, a)
+        }));
+    }
+
+    return ans;
+}
+string stoneGameIII(vector<int>& stone) {
+    int sum = 0; 
+    for(auto s : stone) sum += s;
+    int ans = kev(0, stone);
+
+    debug(ans);
+    
+    if(ans > sum - ans){
+        return "Alice";
+    } 
+    else if(ans == sum - ans){
+        return "Tie";
+    }
+    else{
+        return "Bob";
+    }
+}
+
+
+int main() {
+    vector<int>  a = {-1,-2,-3};
+    cout << stoneGameIII(a);
+    return 0;
+}
+
