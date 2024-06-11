@@ -32,3 +32,38 @@ public:
         return kev(0, special, price, needs);
     }
 };
+
+class Solution {
+// The previous solution showed TLE, tried the obvious way to memorize, shows wrong ans for 64th.
+public:
+    int kev(int i,const vector<vector<int>> sp,const vector<int> pr, vector<int> n, map<pair<int, vector<int>>, int> &dp){
+        if(i == sp.size()){
+            int res = 0;
+            for(int k = 0; k < n.size(); k++){
+                res += (n[k] * pr[k]);
+            }
+            return res;
+        }
+
+        if(dp.find({i, n}) != dp.end()){
+            return dp[{i, n}];
+        }
+        
+        int pick = INT_MAX, not_pick = INT_MAX;
+        not_pick =  kev(i + 1, sp, pr, n, dp);
+        
+        for(int k = 0; k < n.size(); k++){
+            n[k] -= sp[i][k];
+            if(n[k] < 0){
+                return not_pick;
+            }
+        }
+        pick =  sp[i][n.size()] + kev(i, sp, pr, n, dp);
+    
+        return dp[{i, n}] = min(pick, not_pick);
+    }
+    int shoppingOffers(vector<int>& price, vector<vector<int>>& special, vector<int>& needs) {
+        map<pair<int, vector<int>>, int> dp;
+        return kev(0, special, price, needs, dp);
+    }
+};
