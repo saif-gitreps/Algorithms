@@ -108,3 +108,45 @@ public:
         return kev(0, special, price, needs, dp);
     }
 };
+
+
+class Solution {
+// other way of doing it, i think my intuition was mix of both the solution, this was one was closer to what
+// i had thought of, except without the base case part, and also fixes the confusion i had this temp array.
+public:
+    unordered_map<string, int> dp;
+    int kev(int i,const vector<vector<int>> sp,const vector<int> pr, vector<int> n){
+        int res = 0;
+        for(int k = 0; k < n.size(); k++){
+            res += (n[k] * pr[k]);
+        }
+
+        string key = to_string(i);
+        for(auto need : n){
+            key += need;
+        }
+
+        if(dp.find(key) != dp.end()){
+            return dp[key];
+        }
+
+        for(int j = i; j < sp.size(); j++){
+            int flag = true;
+            vector<int> temp;
+            for(int k = 0; k < n.size(); k++){
+                if(sp[j][k] > n[k]){
+                    flag = false; break;
+                }
+                temp.push_back(n[k] - sp[j][k]);
+            }
+            if(flag){
+                res = min(res, sp[j][n.size()] + kev(j, sp, pr, temp));
+            }
+        }
+        return dp[key] = res;
+
+    }
+    int shoppingOffers(vector<int>& price, vector<vector<int>>& special, vector<int>& needs) {
+        return kev(0, special, price, needs);
+    }
+};
