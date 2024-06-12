@@ -67,3 +67,44 @@ public:
         return kev(0, special, price, needs, dp);
     }
 };
+
+
+class Solution {
+// someone said to convert the array into string and now it works.
+public:
+    int kev(int i,const vector<vector<int>> sp,const vector<int> pr, vector<int> n, map<pair<int, string>, int> &dp){
+        if(i == sp.size()){
+            int res = 0;
+            for(int k = 0; k < n.size(); k++){
+                res += (n[k] * pr[k]);
+            }
+            return res;
+        }
+
+        string key = "";
+        for(auto need : n){
+            key += need;
+        }
+
+        if(dp.find({i, key}) != dp.end()){
+            return dp[{i, key}];
+        }
+
+        int pick = INT_MAX, not_pick = INT_MAX;
+        not_pick =  kev(i + 1, sp, pr, n, dp);
+        
+        for(int k = 0; k < n.size(); k++){
+            n[k] -= sp[i][k];
+            if(n[k] < 0){
+                return not_pick;
+            }
+        }
+        pick =  sp[i][n.size()] + kev(i, sp, pr, n, dp);
+    
+        return dp[{i, key}] = min(pick, not_pick);
+    }
+    int shoppingOffers(vector<int>& price, vector<vector<int>>& special, vector<int>& needs) {
+        map<pair<int, string>, int> dp;
+        return kev(0, special, price, needs, dp);
+    }
+};
