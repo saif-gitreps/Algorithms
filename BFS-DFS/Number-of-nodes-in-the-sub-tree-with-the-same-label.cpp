@@ -36,35 +36,43 @@ public:
 
 
 class Solution {
-
-
-    void dfsCountAndUpdate(int node, int prevNode, vector<vector<int>>& adjVec,
-                           string& labels, vector<int>& solution, vector<int>& freqMap) {
-        int prevCount = freqMap[labels[node] - 'a'];
-
-        freqMap[labels[node] - 'a'] += 1;
-        
-        for (int nextNode : adjVec[node]) {
-            if (prevNode == nextNode) continue;
-            dfsCountAndUpdate(nextNode, node, adjVec, labels, solution, freqMap);
-        }
-
-        solution[node] = freqMap[labels[node] - 'a'] - prevCount;
-    }
-
+/* 
+    Every DFS recursion will have its own count array (res) where we will count the frequency 
+    and then tell give  the parent the count of all the labels that were there in the sub tree dfs.
+*/
 public:
-    vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
-        vector<vector<int>> adjVec(n, vector<int>());
+    vector<int> dfs(int src, vector<int> &vis, unordered_map<int, pair<char, vector<int>>> &adj){
+        vis[src] = 1;
+        vector<int> res(26, 0);
+        res[adj[src].first - 'a'] = 1;
 
-        for (vector<int>& edge : edges) {
-            adjVec[edge[0]].push_back(edge[1]);
-            adjVec[edge[1]].push_back(edge[0]);
+        for(auto child : adj[src].second){
+            if(!vis[child]){
+                vector<int> temp = dfs(child, vis, adj);
+                for(int i = 0; i < 26; i++){
+                    res[i] += temp[i];
+                }
+            }
         }
 
-        vector<int> solution(n, 0);
-        vector<int> freqMap = vector<int>(26, 0);
-        dfsCountAndUpdate(0, 0, adjVec, labels, solution, freqMap);
+        vis[src] = res[adj[src].first - 'a'];
+        return res;
+    }
+    vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
+        unordered_map<int, pair<char, vector<int>>> adj;
+        vector<int> vis(n, 0);
+        
+        for(auto edge : edges){
+            adj[edge[0]].second.push_back(edge[1]);  
+            adj[edge[1]].second.push_back(edge[0]);
+        }
 
-        return solution;
+        for(int i = 0; i < n; i++){
+            adj[i].first = labels[i];
+        } 
+        
+        dfs(0, vis, adj);
+
+        return vis;
     }
 };
