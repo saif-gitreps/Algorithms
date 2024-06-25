@@ -49,3 +49,46 @@ public:
         return ans;
     }
 };
+
+// solved again after 5 days 6 hours , exactly the same
+
+class Solution {
+public:
+    bool is_valid(string a, string b){
+        int count = 0;
+
+        for (int i = 0, j = 0; i < a.size() && j < b.size(); j++){
+            if (a[i] != b[j]) count++;
+            else i++;
+        }
+
+        return count <= 1;
+    }
+
+    int dfs(string &word, vector<string>& words, unordered_map<int, vector<string>> &mp, unordered_map<string, int> &dp){
+        if (mp.find(word.size() + 1) == mp.end()) return 1;
+        if (dp.find(word) != dp.end()) return dp[word];
+
+        int count = 0;
+        for (auto w : mp[word.size() + 1])
+            if (is_valid(word, w))
+                count = max(count , dfs(w, words, mp, dp));
+
+        return dp[word] = count + 1;
+    }
+
+    int longestStrChain(vector<string>& words) {
+        unordered_map<int, vector<string>> mp;
+        unordered_map<string, int> dp;
+        
+        for (auto word : words) 
+            mp[word.size()].push_back(word);
+
+        int count = 1;
+        
+        for (auto word : words)
+            count = max(count, dfs(word, words, mp, dp));
+
+        return count;
+    }
+};
