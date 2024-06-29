@@ -76,3 +76,47 @@ public:
         return vis;
     }
 };
+
+
+
+class Solution {
+// tried solving again, had to relook at the solution.
+public:
+    vector<int> dfs(int src, vector<int> &vis, unordered_map<int, pair<char, vector<int>>> &adj) {
+        vector<int> res(26, 0);
+        vis[src] = 1;
+        res[adj[src].first - 'a'] = 1;
+
+        for (auto child : adj[src].second) {
+            if (!vis[child]) {
+                vector<int> temp = dfs(child, vis, adj);
+
+                for (int i = 0; i < 26; i ++) {
+                    res[i] += temp[i];
+                }
+            }
+        }
+
+        int src_child_label_counts = res[adj[src].first - 'a'];
+        vis[src] = src_child_label_counts;
+        return res;
+    }
+
+    vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
+        unordered_map<int, pair<char, vector<int>>> adj;
+        vector<int> ans(n, 0);
+
+        for (auto edge : edges) {
+            adj[edge[0]].second.push_back(edge[1]);
+            adj[edge[1]].second.push_back(edge[0]);
+        } 
+        
+        for (int i = 0; i < n ; i++) {
+            adj[i].first = labels[i];
+        }
+
+        dfs(0, ans, adj);
+
+        return ans;
+    }
+};
