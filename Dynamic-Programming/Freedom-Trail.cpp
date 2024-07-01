@@ -64,3 +64,40 @@ public:
         return kev(0, 0, ring, key, dp);
     }
 };
+
+
+class Solution {
+// solved after re visit.
+public:
+    vector<vector<int>> dp;
+    int kev(int i, int j, string r, string k) {
+        if (j == k.size()) {
+            return 0;
+        }
+
+        if (dp[i][j] != -1) {
+            return dp[i][j];
+        }
+
+        int c_count = 0, ac_count = 0, c = i, a = i;
+
+        while (k[j] != r[c]) {
+            c = (c + 1) % r.size();
+            c_count ++;
+        }
+
+        while (k[j] != r[a]) {
+            a = (a + r.size() - 1) % r.size(); 
+            ac_count++;
+        }
+
+        return dp[i][j] = min(
+            c_count + 1 + kev(c, j + 1, r, k),
+            ac_count + 1 + kev(a, j + 1, r, k)
+        );
+    }
+    int findRotateSteps(string ring, string key) {
+        dp.resize(ring.size() , vector<int> (key.size(), -1));
+        return kev(0, 0, ring, key);
+    }
+};
