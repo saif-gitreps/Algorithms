@@ -55,3 +55,29 @@ public:
         return left_node;
     }
 };
+
+
+/*
+   Revisited after 28 days and solved it.
+   
+*/
+class Solution {
+public:
+    void dfs(TreeNode* root, int curr_level, int &max_level, int &ans) {
+        if (root == NULL) {
+            return;
+        }
+        if (curr_level > max_level) {
+            ans = root -> val;
+            max_level = curr_level;
+        }
+        dfs(root -> left, curr_level + 1, max_level, ans);
+        dfs(root -> right, curr_level + 1, max_level, ans);
+    }
+    int findBottomLeftValue(TreeNode* root) {
+        int ans = root -> val, max_level = 0;
+        dfs(root, 0, max_level, ans);
+
+        return ans;
+    }
+};
