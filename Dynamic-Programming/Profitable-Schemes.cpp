@@ -59,3 +59,78 @@ public:
         return kev(0, n, 0, group, profit, dp);
     }
 };
+
+
+class Solution {
+// So about the commented part, Well in my recursion the condition is no matter what value of n is,
+// if it gets us a minProfit then its 1. 
+public:
+    int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
+        vector<vector<vector<int>>> dp(group.size() + 1, vector<vector<int>> (n + 1, vector<int> (minProfit + 1 , 0)));
+        const int mod = 1e9 + 7;
+        int sz = group.size(), ans = 0;
+        dp[0][0][0] = 1;
+
+        for (int i = 0; i <= n; i ++) {
+            dp[0][i][0] = 1;
+        }
+
+        for (int i = 1; i <= sz; i++) {
+            // i need to do some research on why it is i - 1.
+            int g = group[i - 1];
+            int p = profit[i - 1];
+            
+            for (int j = 0; j <= n; j++) {
+                for (int k = 0; k <= minProfit; k++) {
+                    int pick = 0;
+                
+                    if (j >= g) {
+                        pick = dp[i - 1][j - g][max(0,k - p)];
+                    }
+                    
+                    dp[i][j][k] = (pick + dp[i - 1][j][k]) % mod;
+                }
+            }
+        }
+
+
+        // for (int i = 0; i <= n; i ++) {
+        //     ans = (ans + dp[sz][i][minProfit]) % mod;
+        // }
+
+        return dp[sz][n][minProfit];
+     }
+};
+
+
+class Solution {
+// This is apparently the optimized solution, idk why J and K are reversed. I need to do research on that as well.
+public:
+    int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
+        vector<vector<int>> dp(n + 1, vector<int> (minProfit + 1 , 0));
+        const int mod = 1e9 + 7;
+        int sz = group.size();
+        for (int i = 0; i <= n; i ++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i <= sz; i++) {
+            int g = group[i - 1];
+            int p = profit[i - 1];
+            
+            for (int j = n; j >= 0; j--) {
+                for (int k = minProfit; k >= 0; k--) {
+                    int pick = 0;
+                
+                    if (j >= g) {
+                        pick = dp[j - g][max(0,k - p)];
+                    }
+                    
+                    dp[j][k] = (pick + dp[j][k]) % mod;
+                }
+            }
+        }
+
+        return dp[n][minProfit];
+     }
+};
