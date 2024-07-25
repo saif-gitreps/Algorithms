@@ -30,3 +30,25 @@ public:
 
 };
 
+/*   
+    wrote the solution in python3, 
+    the theory is that we use prime factorization as method that represents copy and paste.
+    example for test case 18. We know  2 is divisor, that basically means when we have 9 A's on 
+    the screen, we can do a copy + paste (2) to get 18.
+    next iteration, it is 9, that means we got 3 A's, we can copy + paste + paste (3).
+    next iteration, it is 3, that means we got 1 A, copy + paste + paste (3).
+
+    next time think of factorization as a way to break down problems into smaller manageable parts.
+    
+ */     
+class Solution:
+    def minSteps(self, n: int) -> int:
+        ans = 0
+        for d in range(2, n + 1):
+            while n % d == 0:
+                ans += d
+                n /= d
+        
+        return ans
+        
+
