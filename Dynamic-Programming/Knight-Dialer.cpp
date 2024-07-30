@@ -1,5 +1,5 @@
 class Solution {
-// This works but its TLE even for the first few cases. This is the actual bruteforce.
+// This works but its TLE even for the first few cases. This is the bruteforce.
 public:
     const int mod = 1e9 + 7;
     vector<vector<int>> offset = {{1,2} , {-1,2}, {1, -2}, {-1, -2}, {2, 1}, {-2, 1}, {2,-1}, {-2, -1}};
