@@ -1,6 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+string find_terminal(string s, unordered_map<string, string> &mp) {
+    if (mp.find(s) != mp.end()) {
+        return find_terminal(mp[s], mp);
+    }
+
+    return s;
+}
+
+
 int main() {
     cout << "Enter the number of production: \n";
     int n; 
