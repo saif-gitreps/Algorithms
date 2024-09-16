@@ -60,6 +60,13 @@ int main() {
     string s;
     getline(cin, s);
 
+    unordered_set<string> keywords;
+    keywords.insert("int");
+    keywords.insert("float");
+    keywords.insert("double");
+    keywords.insert("string");
+    keywords.insert("char");
+
     for (int i = 0; i < s.size(); i++) {
         if (s[i] == ' ') continue;
 
@@ -70,7 +77,12 @@ int main() {
                 temp += s[i];
                 i++;
             }
-            cout << temp << " is identifier\n";
+
+            if (keywords.find(temp) != keywords.end()) {
+                cout << temp << " is keyword\n";
+            } else {
+                cout << temp << " is identifier\n";
+            }
         } 
         if (isOperator(s[i])) {
             cout << s[i] << " is Operator\n";
