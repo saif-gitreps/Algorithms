@@ -71,3 +71,53 @@ public:
         return dp[n][m];
     }
 };
+
+
+
+class Solution {
+// revisit after a year.
+/*
+    latest understanding:
+    Max is word1.size() + word1.size(). Where we have to remove
+    every letter from word1 and add every letter there is on word2. 
+    We know we will get an LCS , we are trying to see the minimum number
+    of letters that dont match - LCS.
+    For the base case, I am having hard time putting into sentence.
+    lets say a = "bcde" b = "b", we reached at the end of b index. now to 
+    count the letters that are need to finish b is number of remaining chars 
+    in a, and we have the index number as well which is i. 
+*/
+public:
+    int minDistance(string word1, string word2) {
+        int n = word1.size(), m = word2.size();
+
+        vector<vector<int>> dp(n + 1, vector<int> (m + 1, -1));
+
+        for (int j = 0; j <= m; j++) {
+            dp[0][j] = j; 
+        }
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = i;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if(word1[i-1] == word2[j-1]){
+                    dp[i][j] = dp[i-1][j-1];
+                }
+                else {
+                    dp[i][j] = 1 + min (
+                        dp[i-1][j-1],
+                            min (
+                            dp[i-1][j],
+                            dp[i][j-1]
+                        )
+                    );
+                }
+            }
+        }
+
+        return dp[n][m];
+    }
+};
