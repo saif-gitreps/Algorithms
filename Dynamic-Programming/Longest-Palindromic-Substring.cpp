@@ -135,3 +135,84 @@ public:
 };
 
 // Two more algorithms to review.
+
+class Solution {
+// easiest techniques 
+/* 
+First solution is using a midpoint expansion technique, we will loop through the string, and do the following:
+1. pick an index and expand to left and right from it.
+2. pick two index, i and i+1 and expand from there (handles cases of even number)
+note: we keep a left and right index instead of a ans string. because 
+calling substr is an expensive operation. using left and right, we can just use substr at the end.
+
+*/
+public:
+    pair<int, int> getExpandedExtremeIndexes(string s, int L, int R) {
+        while (L >= 0 && R < s.size() && s[L] == s[R]) {
+            R++;
+            L--;
+        }
+
+        return {L+1, R-1};
+    }
+
+    string longestPalindrome(string s) {
+        int left = 0, right = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+            pair<int, int> expa1 = getExpandedExtremeIndexes(s, i, i);
+            pair<int, int> expa2 = getExpandedExtremeIndexes(s, i, i+1);
+
+            if (expa1.second - expa1.first > right - left) {
+                left = expa1.first;
+                right = expa1.second;
+            }
+
+            if (expa2.second - expa2.first > right - left) {
+                left = expa2.first;
+                right = expa2.second;
+            }
+        }
+
+        return s.substr(left, right - left + 1);
+    }
+};
+
+
+
+class Solution {
+// A recursion that is O(n^2) and not O(n^3) because it gets memo'ed, this is worser than the prev solution.
+public:
+     string longestPalindrome(string s) {
+        int n = s.length();
+        vector<vector<int>> memo(n, vector<int>(n, -1)); 
+        int start = 0, maxLength = 0;
+
+        function<bool(int, int)> isPalindrome = [&](int i, int j) -> bool {
+            if (i > j) return true;   
+            if (i == j) return true;   
+            if (memo[i][j] != -1) return memo[i][j]; 
+
+            if (s[i] == s[j]) {
+                memo[i][j] = isPalindrome(i + 1, j - 1); 
+            } else {
+                memo[i][j] = 0;
+            }
+
+            if (memo[i][j] && (j - i) > maxLength) {
+                start = i;
+                maxLength = j - i;
+            }
+
+            return memo[i][j];
+        };
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = i; j < n; ++j) {
+                isPalindrome(i, j); 
+            }
+        }
+
+        return s.substr(start, maxLength + 1);
+    }
+};
