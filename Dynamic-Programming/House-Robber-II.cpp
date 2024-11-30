@@ -92,3 +92,26 @@ public:
         return max(ans1,ans2);
     }
 };
+
+// this unique idea somehow worked, what if we kept a state of whether we picked the first index or no
+
+class Solution {
+public:
+    int kev(int i, vector<int> &a,  vector<vector<int>> &dp, bool isFirst) {
+        if (i >= a.size()) return 0;
+
+        if (i == a.size() - 1 && isFirst) return 0;
+
+        if (dp[i][isFirst] != -1) return dp[i][isFirst];
+
+        return dp[i][isFirst] = max(
+            a[i] + kev(i + 2, a, dp, i == 0 ? true : isFirst), 
+            kev(i+1, a, dp, isFirst)
+        );
+    }
+    int rob(vector<int>& nums) {
+        vector<vector<int>> dp(nums.size(), vector<int> (2, -1));
+
+        return kev(0, nums, dp, false);
+    }
+};
