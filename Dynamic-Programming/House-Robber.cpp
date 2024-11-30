@@ -60,3 +60,24 @@ public:
         return kev(nums.size()-1, nums);
     }
 };
+
+
+// revisit
+class Solution {
+public:
+    int kev(int i, vector<int> &a,  vector<int> &dp) {
+        if (i >= a.size()) return 0;
+
+        if (dp[i] != -1) return dp[i];
+
+        return dp[i] = max(
+            a[i] + kev(i + 2, a, dp), 
+            kev(i+1, a, dp)
+        );
+    }
+    int rob(vector<int>& nums) {
+        vector<int> dp(nums.size(), -1);
+
+        return kev(0, nums, dp);
+    }
+};
