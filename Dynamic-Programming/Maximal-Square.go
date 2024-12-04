@@ -36,3 +36,28 @@ func maximalSquare(matrix [][]byte) int {
     }
     return mx * mx;
 }
+
+
+// was able to spot out the intuition successfully
+
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        vector<vector<int>> a(matrix.size()+1, vector<int> (matrix[0].size()+1, 0));
+
+        int mx = 0;
+        for (int i = 0; i < a.size(); i++) {
+            for (int j = 0; j < a[0].size(); j++) {
+                if (i-1 >= 0 && j-1 >= 0 && matrix[i-1][j-1] == '1') {
+                    a[i][j] =  1 + min(
+                        a[i][j-1],
+                        min(a[i-1][j], a[i-1][j-1])
+                    );
+                }
+                mx = max(a[i][j], mx);
+            }
+        }
+
+        return mx * mx;
+    }
+};
