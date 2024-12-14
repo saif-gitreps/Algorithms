@@ -1,0 +1,36 @@
+class Solution {
+did work for almost all cases except 10.
+public:
+    bool has_parity(int left, int right, vector<int> &a, vector<int> &dp) {
+        for (int i = left + 1; i <= right; i++) {
+            if ((a[i-1] % 2 == 0 && a[i] % 2 == 0) || 
+                (a[i-1] % 2 == 1 && a[i] % 2 == 1)
+            ) {
+                dp[i] = 0;
+                return false;
+            }
+            dp[i] = 1;
+            dp[i-1] = 1;
+        }
+        return true;
+    }
+    vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
+        vector<bool> ans;
+        vector<int> dp(nums.size(), -1);
+
+        for (auto q : queries) {
+            if (dp[q[0]] != -1 && dp[q[1]] != -1) {
+                if (!dp[q[0]] || !dp[q[1]]) {
+                    ans.push_back(false);
+                    continue;
+                } 
+            } 
+            if (!has_parity(q[0], q[1], nums, dp)) {
+                ans.push_back(false);
+            } else {
+                ans.push_back(true);
+            }
+        }
+        return ans;
+    }
+};
