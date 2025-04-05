@@ -1,54 +1,33 @@
-class Solution {
+
+class Solution {
 public:
-    int minOperations(vector<vector<int>>& grid, int x) {
-        int m = grid.size(), n = grid[0].size();
-        int tn = m * n, tc = 0;
-        int a[tn];
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                a[i * n + j] = grid[i][j];
-        sort(a, a + tn);
-        int mid = tn / 2;
-        for (int i = 0; i < tn; i++) {
-            if ((abs(a[i] - a[mid])) % x != 0)
-                return -1;
-            tc += abs(a[i] - a[mid]) / x;
-        }
-        return tc;
-    }
-};
-       
-
-
-#include <vector>
-#include <algorithm>
-
-using namespace std;
-
-class Solution {
-public:
-    int minOperations(vector<vector<int>>& grid, int x) {
-        vector<int> all;
-        
-        for (auto& row : grid) {
-            for (int num : row) {
-                all.push_back(num);
+    int minOperations(vector<vector<int>>& a, int x) {
+        vector<int> nums;
+        for (int i = 0; i < a.size(); i++) {
+            for (int j = 0; j < a[0].size(); j++) {
+                nums.push_back(a[i][j]);
             }
         }
 
-        int mod = all[0] % x;
-        for (int num : all) {
-            if (num % x != mod) return -1;
+        sort(nums.begin(), nums.end());
+        int n = nums.size(), median, ans = 0;
+        
+        // if (n / 2 == 1) {
+        //     median = nums[n/2];
+        // } else {
+        //     int num1 = nums[n/2 - 1];
+        //     int num2 = nums[n/2];
+        //     median = (num1 + num2) / 2;
+        // }
+        median = nums[n/2];
+        
+        for (int i = 0; i < n; i++) {
+            int z = abs(nums[i] - median);
+            if (z % x != 0) {
+                return -1;
+            }
+            ans += (z / x);
         }
-
-        sort(all.begin(), all.end());
-        int median = all[all.size() / 2];
-        int operations = 0;
-
-        for (int num : all) {
-            operations += abs(num - median) / x;
-        }
-
-        return operations;
+        return ans;
     }
-}; 
+};
