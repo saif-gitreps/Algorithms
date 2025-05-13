@@ -1,43 +1,42 @@
 class Solution {
+// TLE
 public:
-    bool isValid(const int row, const int col, const std::vector<std::vector<int>>& grid)
-    {
-        return row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size();
-    }
+    vector<vector<int>> dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    int mn = INT_MAX;
 
-    int minTimeToReach(vector<vector<int>>& moveTime) {
-        
-        std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<>> weightToRowToColPQ;
+    void kev(int i, int j, vector<vector<int>>& a, vector<vector<int>>& vis, int t) {
+        int n = a.size();
+        int m = a[0].size();
 
-        weightToRowToColPQ.push({0, 0, 0});
+        if (i < 0 || j < 0 || i >= n || j >= m || vis[i][j])
+            return;
 
-        std::vector<std::vector<int>> minTimeToReach(moveTime.size(), std::vector<int>(moveTime.front().size(), INT_MAX));
+        if (i == n - 1 && j == m - 1) {
+            mn = min(mn, t);
+            return;
+        }
 
-        const std::array<int, 5> transformations = {0, 1, 0, -1, 0};
+        vis[i][j] = 1;
 
-        while(weightToRowToColPQ.empty() == false)
-        {
-            int weight = weightToRowToColPQ.top()[0];
-            int row = weightToRowToColPQ.top()[1];
-            int col = weightToRowToColPQ.top()[2];
-            weightToRowToColPQ.pop();
+        for (int k = 0; k < 4; k++) {
+            int ni = i + dir[k][0];
+            int nj = j + dir[k][1];
 
-            for(int i = 1; i < transformations.size(); i++)
-            {
-                int xformRow = transformations[i] + row;
-                int xformCol = transformations[i - 1] + col;
-                
-                if(isValid(xformRow, xformCol, moveTime) == false) continue;
-
-                int newWeight = std::max(moveTime[xformRow][xformCol], weight) + 1;
-                if(newWeight < minTimeToReach[xformRow][xformCol])
-                {
-                    minTimeToReach[xformRow][xformCol] = newWeight;
-                    weightToRowToColPQ.emplace(std::vector<int>{newWeight, xformRow, xformCol});
-                }
+            if (ni >= 0 && nj >= 0 && ni < n && nj < m && !vis[ni][nj]) {
+                int wait = max(0, a[ni][nj] - t);
+                kev(ni, nj, a, vis, t + wait + 1); 
             }
         }
 
-        return minTimeToReach.back().back();
+        vis[i][j] = 0;
+    }
+
+    int minTimeToReach(vector<vector<int>>& a) {
+        int n = a.size();
+        int m = a[0].size();
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+
+        kev(0, 0, a, vis, 0);
+        return mn;
     }
 };
