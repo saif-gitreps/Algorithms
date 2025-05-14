@@ -40,3 +40,51 @@ public:
         return mn;
     }
 };
+
+
+
+class Solution {
+// better solution, try to dry run a test case.
+public:
+    int minTimeToReach(vector<vector<int>>& moveTime) {
+        int row = moveTime.size();
+        int col = moveTime[0].size();
+        vector<vector<int>> distance(row+1, vector<int> (col+1, INT_MAX));
+        priority_queue<tuple<int, int, int>, 
+                       vector<tuple<int,int,int>>, 
+                       greater<tuple<int,int,int>>> pq;
+
+        vector<vector<int>> dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        pq.emplace(0, 0, 0);
+        distance[0][0] = 0;
+
+        while(pq.empty() == false) {
+            auto [currentTime, x, y] = pq.top();
+            pq.pop();
+
+            if (x == row-1 && y == col-1) {
+                return currentTime;
+            }
+
+            for (auto d : dir) {
+                int newX = x + d[0];
+                int newY = y + d[1];
+
+                if (newX < 0 || newX >= row || newY < 0 || newY >= col) {
+                    continue;
+                }
+
+                int waitTime = max(moveTime[newX][newY] - currentTime, 0);
+                int newTime = waitTime + currentTime + 1;
+
+                if (newTime < distance[newX][newY]) {
+                    distance[newX][newY] = newTime;
+                    pq.emplace(newTime, newX, newY);
+                }
+            }
+        }
+
+        return -1;
+
+    }
+};
