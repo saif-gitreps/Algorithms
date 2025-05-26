@@ -21,31 +21,40 @@ public:
 class Solution {
 public:
     int lengthAfterTransformations(string s, int t) {
-        const int MOD = 1e9 + 7;
-        vector<long long> cnt(26, 0);
+        // we are trying to simulate the above brutforce attempt but with a string map.
+        int count = 0;
+        int const mod = 1e9 + 7;
+        int nums[26] = {0};
 
-        for (char c : s) {
-            cnt[c - 'a']++;
+        for (char ch : s) {
+            nums[ch - 'a']++;
         }
 
-        for (int j = 0; j < t; j++) {
-            vector<long long> tmp(26, 0);
-            for (int i = 0; i < 26; i++) {
-                if (i == 25) {
-                    tmp[0] = (tmp[0] + cnt[i]) % MOD;
-                    tmp[1] = (tmp[1] + cnt[i]) % MOD;
-                } else {
-                    tmp[i + 1] = (tmp[i + 1] + cnt[i]) % MOD;
+        while (t--) {
+            int current_word[26] = {0};
+
+            for (int j = 0; j < 26; j++) {
+                if (j == 25 && nums[j] > 0) {
+                    current_word[0] = (current_word[0] + nums[j]) % mod;
+                    current_word[1] = (current_word[1] + nums[j]) % mod;
+
+                    // why nums[j]/'z' ? because initially, for every z, we get an 'a' and 'b'. so the number of 'ab' increases.
+                } else if (j < 25) {
+                    current_word[j + 1] = (current_word[j + 1] + nums[j]) % mod;
+
+                    // if you have 'aaa', all of the 'a's will turn in to 'bbb'. so increase the freq of the next letter with the freq of current letter.
                 }
             }
-            cnt = tmp;
+
+            for (int j = 0; j < 26; j++) {
+                nums[j] = current_word[j];
+            }
         }
 
-        long long len = 0;
-        for (long long c : cnt) {
-            len = (len + c) % MOD;
+        for (int i = 0; i < 26; i++) {
+            count = (count + nums[i]) % mod;
         }
 
-        return len;
+        return count;
     }
 };
