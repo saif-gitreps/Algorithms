@@ -70,9 +70,59 @@ public:
 };
 
 class Solution {
+// naive approach.
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        priority_queue<int> pq;
-        for (int i = 0; i < )
+        unordered_map<int, int> mp;
+        for (auto num : nums) {
+            mp[num]++;
+        }
+        priority_queue<pair<int, int>> pq;
+        for (const auto &it: mp) {
+            pq.push({
+                it.second,
+                it.first
+            });
+        }
+        vector<int> ans;
+        for (int i = 0; i < k; i++) {
+            if (!pq.empty()) {
+                ans.push_back(pq.top().second);
+                pq.pop();
+            }
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        for (auto num : nums) {
+            mp[num]++;
+        }
+        // we know that the max frequency of any number is size of nums.
+        // we also that every frequency is unique;
+        // we will index the frequency with an array, although all the frequencies are unique, we still need to account for the case where a single frequency has multiple element of nums.
+
+        vector<vector<int>> freq(nums.size()+1);
+        vector<int> ans;
+        for (const auto &it: mp) {
+            freq[it.second].push_back(it.first);
+        }
+
+        for (int i = nums.size(); i >= 0 && ans.size() < k; i--) {
+            if (freq[i].size() > 0) {
+                // now you might be thinking, wait if are starting a loop, then wont all the number belonging to a same frequency get pushed? Nah that won't happen because other than 1, evry other frequencies are unique, besides this loop exists for the test case where all the frequencies are 1.
+                for (auto num : freq[i]) {
+                    ans.push_back(num);
+                    if (ans.size() == k) {
+                        break;
+                    }
+                }
+            }
+        }
+        return ans;
     }
 };
