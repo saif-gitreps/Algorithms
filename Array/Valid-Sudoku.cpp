@@ -141,8 +141,6 @@ class Solution
 public:
     bool isValidSudoku(vector<vector<char> > &board)
     {
-        int used1[9][9] = {0}, used2[9][9] = {0}, used3[9][9] = {0};
-        
         for(int i = 0; i < board.size(); ++ i)
             for(int j = 0; j < board[i].size(); ++ j)
                 if(board[i][j] != '.')
