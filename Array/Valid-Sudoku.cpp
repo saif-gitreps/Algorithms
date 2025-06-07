@@ -113,27 +113,7 @@ the rest are:
 
 in block[][][] <- this third index is used to hash all the numbers from 00 sub block, if it exists then we can return false.
 
-*/
-public:
-    bool isValidSudoku(vector<vector<char>>& a) {
-        int row_check[9][9] = {0};
-        int col_check[9][9] = {0};
-        int block[9][9][9] = {0};
 
-        for(int row = 0 ; row < 9; row ++){
-            for(int col = 0; col < 9; col ++){
-                if(a[row][col]=='.'){
-                    continue;
-                }
-                int num = a[row][col] - '1';
-                if(row_check[row][num]++ || col_check[col][num]++ || block[row/3][col/3][num]++){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-};
 
 
 class Solution {
