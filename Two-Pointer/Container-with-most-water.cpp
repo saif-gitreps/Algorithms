@@ -19,3 +19,27 @@ public:
         return maxi;
     }
 };
+
+
+class Solution {
+// SUI solved on my own in 8 minutes with logic.
+public:
+    int maxArea(vector<int>& height) {
+        int L = 0;
+        int R = height.size()-1;
+        int max_area = 0;
+        while (L < R) {
+            max_area = max(
+                max_area,
+                min(height[L], height[R]) * (R-L)
+            );
+            if (height[L] <= height[R]) {
+                L++;
+            } else {
+                R--;
+            }
+        }
+
+        return max_area;
+    }
+};
