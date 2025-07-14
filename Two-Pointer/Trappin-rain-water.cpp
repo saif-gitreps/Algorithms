@@ -16,3 +16,16 @@ public:
         return ans;
     }
 };
+
+class Solution { 
+public:
+    int trap(vector<int>& a) {
+        int water = 0;
+        int n = a.size();
+        for (int i = 0; i < n; i++) {
+            if (i - 1 >= 0 && i + 1 < n) {
+                
+            }
+        }
+    }
+};
