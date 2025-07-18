@@ -17,15 +17,53 @@ public:
     }
 };
 
-class Solution { 
+class Solution {
+// lesgo baby figured it out
 public:
-    int trap(vector<int>& a) {
-        int water = 0;
-        int n = a.size();
-        for (int i = 0; i < n; i++) {
-            if (i - 1 >= 0 && i + 1 < n) {
-                
+    int trap(vector<int>& height) {
+        int left = 0;
+        int right = height.size()-1;
+        int max_left = 0;
+        int max_right = 0;
+        int ans = 0;
+
+        while (true) {
+            if (height.size() % 2 == 0) {
+                if (left == right) {
+                    break;
+                }
+            } else {
+                if (left > right) {
+                    break;
+                }
             }
-        }
+            max_left = max(max_left, height[left]);
+            max_right = max(max_right, height[right]);
+
+            if (left == right) {
+                if (height[left] < min(max_left, max_right)) {
+                    ans += (min(max_left, max_right) - height[left]);
+                }
+            } else {
+                if (height[left] < min(max_left, max_right)) {
+                    ans += (min(max_left, max_right) - height[left]);
+                }
+                if (height[right] < min(max_left, max_right)) {
+                    ans += (min(max_left, max_right) - height[right]);
+                }
+            }
+
+            // debug(ans);
+            // debug("--");
+
+            if (height[left] <= height[right]){
+                left++;
+            } else if (height[left] > height[right]) {
+                right--;
+            } 
+        }    
+
+        return ans;  
     }
+
 };
