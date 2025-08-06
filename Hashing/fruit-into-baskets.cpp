@@ -56,3 +56,36 @@ public:
         return mx + second_mx;
     }
 };
+
+
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        if (fruits.size() == 1) {
+            return 1;
+        }
+        int fast =  1;
+        int slow = 0, ans = 0;
+        unordered_map<int, int> mp;
+        mp[fruits[slow]]++;
+        for (; fast < fruits.size() && slow < fruits.size(); fast++) {
+            mp[fruits[fast]]++;
+
+            if (mp.size() > 2) {
+                int key_to_delete = fruits[slow];
+                while (key_to_delete == fruits[slow]) {    
+                    mp[fruits[slow++]]--;
+                    
+                    if (mp[key_to_delete] == 0) {
+                        mp.erase(key_to_delete);
+                        break;
+                    }
+                }
+            }
+            ans = max(ans, fast - slow + 1);
+        }   
+
+        return ans;
+    } 
+
+};
