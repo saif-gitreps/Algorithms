@@ -47,3 +47,19 @@ public:
         return area;
     }
 };
+
+class Solution {
+public:
+    int areaOfMaxDiagonal(vector<vector<int>>& dimensions) {
+        
+        int diag = 0;
+        int area = 0;
+
+        for(auto d : dimensions){
+
+            int t = d[0]*d[0] + d[1]*d[1];
+        }
+
+        return area;
+    }
+};
