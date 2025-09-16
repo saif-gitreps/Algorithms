@@ -21,15 +21,6 @@ public:
             return a.pos<b.pos;
         });
         
-        stack<float> mono;
-        for(int i = 0; i<N; i++){
-            float time = 
-                (target-cars.at(i).pos)/(float)cars.at(i).speed;
-            while(!mono.empty() && time >= mono.top()){
-                mono.pop();
-            }
-            mono.push(time);
-        }
-        return mono.size();
+
     }
 };
