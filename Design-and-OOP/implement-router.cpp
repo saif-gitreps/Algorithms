@@ -11,6 +11,7 @@ public:
     Node *head, *tail;
     int len, curr;
     set<pair<pair<int, int>, int>> seen; // example duplicate check by timestamp
+    set<int> st;
 
     Router(int memoryLimit) {
         head = tail = nullptr;
@@ -21,6 +22,7 @@ public:
     bool addPacket(int source, int destination, int timestamp) {
         if (seen.count({{source, destination}, timestamp})) return false;
         seen.insert({{source, destination}, timestamp});
+        st.insert(timestamp);
 
         Node* newnode = new Node(source, destination, timestamp);
 
@@ -57,6 +59,16 @@ public:
     }
     
     int getCount(int destination, int startTime, int endTime) {
-        
+    int count = 0;
+    Node* temp = head;
+    while (temp) {
+        if (temp->destination == destination &&
+            temp->timestamp >= startTime &&
+            temp->timestamp <= endTime) {
+            count++;
+        }
+        temp = temp->next;
     }
+    return count;
+}
 };
