@@ -19,17 +19,28 @@ public:
         return left;
     }
 };
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1;
+        int right = 1e9;
 
-    int minEatingSpeed(vector<int>& piles, int H) {
-        int l = 1, r = 1000000000;
-        while (l < r) {
-            int m = (l + r) / 2, total = 0;
-            for (int p : piles)
-                total += (p + m - 1) / m;
-            if (total > H)
-                l = m + 1;
-            else
-                r = m;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            int hours = 0;
+            for (int i = 0; i < piles.size(); i++) {
+                int d = (piles[i] / mid);
+                hours += d;
+                if (piles[i] % mid > 0) hours++;
+            }
+
+            if (hours <= h) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            } 
         }
-        return l;
+
+        return left;
     }
+};
