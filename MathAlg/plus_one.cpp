@@ -40,3 +40,30 @@ public:
         return a;
         }
 };
+
+
+class Solution {
+// now this solution can work for all cases of adding any digits to one's place
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int carry = 1;
+        for (int i = digits.size()-1; i >= 0; i--) {
+            digits[i] += carry;
+            carry = (digits[i] + carry) % 10;
+            if (digits[i] <= 9) {
+                carry = 0;
+                break;
+            } else {
+                digits[i] = digits[i] % carry;
+            }
+        }
+
+        if (carry) {
+            reverse(digits.begin(), digits.end());
+            digits.push_back(carry);
+            reverse(digits.begin(), digits.end());
+        }
+
+        return digits;
+    }
+};
